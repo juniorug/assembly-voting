@@ -1,0 +1,23 @@
+server:
+    address: 0.0.0.0
+    #context-path: /beerhouse
+    port: 8080
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://root:qwe123@cluster0.n31n2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
+#kafka:
+#  bootstrap-address: ${KAFKA_SERVER_ADDRESS}
+#  num-partitions: ${KAFKA_NUM_PARTITIONS}
+#  num-replicas: ${KAFKA_NUM_REPLICAS}
+#  audit:
+#    bootstrap-address: ${KAFKA_AUDIT_ADDRESS}
+#    topic: ${KAFKA_AUDIT_TOPIC}
+
+logging:
+  file: assembly-voting.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+  level:
+    root: ERROR

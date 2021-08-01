@@ -5,7 +5,7 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://root:qwe123@cluster0.n31n2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+      uri: mongodb+srv://root:qwe123@cluster0.n31n2.mongodb.net/AssemblyVoting?retryWrites=true&w=majority
 
 #kafka:
 #  bootstrap-address: ${KAFKA_SERVER_ADDRESS}

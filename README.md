@@ -81,3 +81,18 @@ This file can also be found in the project's `/docs` folder.
 ## Postman Collection
 
 To import the Postman collection, use the file `/docs/Assembly Voting Spring Boot REST API.postman_collection.json`
+
+## Steps to accomplish this exercise:
+
+- Data modeling
+- Create and configure database
+- Write endpoints documentation (Swagger)
+- Create springboot sketch app -- assembly-voting
+- Create test cases
+- Create entities, repositories, services and controllers
+
+`Optional:`
+
+- Configure a kafka service where the voting result will be published
+- create performance test
+- API versioning: add custom header versioning (https://www.springboottutorial.com/spring-boot-versioning-for-rest-services)

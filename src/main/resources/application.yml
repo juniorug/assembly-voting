@@ -1,11 +1,21 @@
 server:
     address: 0.0.0.0
     #context-path: /beerhouse
-    port: 8080
+    port: 8099
 spring:
-  data:
-    mongodb:
-      uri: mongodb+srv://root:qwe123@cluster0.n31n2.mongodb.net/AssemblyVoting?retryWrites=true&w=majority
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://sql177.main-hosting.eu/u765057031_assemblydb
+    username: u765057031_root
+    password: Support123
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+#spring:
+#  data:
+#    mongodb:
+#      uri: mongodb+srv://root:qwe123@cluster0.n31n2.mongodb.net/AssemblyVoting?retryWrites=true&w=majority
 
 #kafka:
 #  bootstrap-address: ${KAFKA_SERVER_ADDRESS}
@@ -15,9 +25,9 @@ spring:
 #    bootstrap-address: ${KAFKA_AUDIT_ADDRESS}
 #    topic: ${KAFKA_AUDIT_TOPIC}
 
-logging:
-  file: assembly-voting.log
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
-  level:
-    root: ERROR
+#logging:
+#  file: assembly-voting.log
+#  pattern:
+#    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+#  level:
+#    root: ERROR

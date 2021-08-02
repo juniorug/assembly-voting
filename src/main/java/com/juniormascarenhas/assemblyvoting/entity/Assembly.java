@@ -15,6 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.juniormascarenhas.assemblyvoting.response.AssemblyResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,16 +44,27 @@ public class Assembly implements Serializable {
   @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
   private String id;
 
-  @Column(name = "DESCRIPTION", length = 137)
+  @Column(name = "DESCRIPTION", length = 1024)
   private String description;
 
   @Column(name = "REALIZATION_DATE")
   @DateTimeFormat(pattern = "yyyy.MM.dd HH:mm:ss")
   private LocalDateTime realizationDate;
 
+  @Column(name = "CREATED_AT")
+  private LocalDateTime createdAt;
+
+  @Column(name = "UPDATED_AT")
+  private LocalDateTime updatedAt;
+
   @JsonIgnore
   @Builder.Default
   @OneToMany(orphanRemoval = true, mappedBy = "assembly")
-  private List<TopicSession> topics = List.of();
+  private List<TopicSession> topicSessions = List.of();
+
+  public AssemblyResponse toResponse() {
+    return AssemblyResponse.builder().id(id).description(description).realizationDate(realizationDate)
+        .createdAt(createdAt).updatedAt(updatedAt).topicSessions(topicSessions).build();
+  }
 
 }

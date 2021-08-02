@@ -1,22 +1,32 @@
 package com.juniormascarenhas.assemblyvoting.service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
+import javax.transaction.Transactional;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.juniormascarenhas.assemblyvoting.entity.Assembly;
 import com.juniormascarenhas.assemblyvoting.entity.TopicSession;
 import com.juniormascarenhas.assemblyvoting.enumeration.SessionStatus;
+import com.juniormascarenhas.assemblyvoting.exception.EntityAlreadyExistsException;
 import com.juniormascarenhas.assemblyvoting.exception.ResourceNotFoundException;
 import com.juniormascarenhas.assemblyvoting.repository.AssemblyRepository;
 import com.juniormascarenhas.assemblyvoting.repository.TopicSessionRepository;
+import com.juniormascarenhas.assemblyvoting.request.AssemblyRequest;
+import com.juniormascarenhas.assemblyvoting.request.GetAssemblysQueryParam;
 
 @Service
 public class AssemblyService {
+
+  private static final String REALIZATION_DATE = "realizationDate";
 
   @Autowired
   private AssemblyRepository assemblyRepository;
@@ -28,8 +38,24 @@ public class AssemblyService {
     return assemblyRepository.save(assembly).getId();
   }
 
-  public List<Assembly> getAll() {
-    return assemblyRepository.findAll();
+  @Transactional
+  public String createAssembly(AssemblyRequest assemblyRequest) {
+    assemblyRepository.findByRealizationDate(assemblyRequest.getRealizationDate()).ifPresent(e -> {
+      throw new EntityAlreadyExistsException(REALIZATION_DATE);
+    });
+    return assemblyRepository.save(assemblyRequest.toEntity()).getId();
+  }
+
+  public Page<Assembly> listAssemblys(GetAssemblysQueryParam params) {
+    System.out.println("params: " + params.toString());
+    Pageable pageable = PageRequest.of(params.getOffset(), params.getLimit(), params.getSort().getSortBy());
+    Page<Assembly> assemblys;
+    if (StringUtils.isNotBlank(params.getKeywords())) {
+      assemblys = assemblyRepository.findAllByKeywords(params, pageable);
+    } else {
+      assemblys = assemblyRepository.findAll(pageable);
+    }
+    return assemblys;
   }
 
   public Assembly findById(String id) {
@@ -41,7 +67,7 @@ public class AssemblyService {
     }
   }
 
-  public List<Assembly> findByRealizationDate(LocalDateTime realizationDate) {
+  public Optional<Assembly> findByRealizationDate(LocalDateTime realizationDate) {
     return assemblyRepository.findByRealizationDate(realizationDate);
   }
 

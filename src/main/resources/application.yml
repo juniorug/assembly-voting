@@ -9,9 +9,15 @@ spring:
     username: u765057031_root
     password: Support123
   jpa:
-    hibernate.ddl-auto: update
+    #hibernate.ddl-auto: update
+    hibernate.ddl-auto: create
     generate-ddl: true
     show-sql: true
+    
+search:
+  configuration:
+    default-limit: 20
+    accept-range: 100
 #spring:
 #  data:
 #    mongodb:

@@ -9,7 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum SortingFieldEnum {
 
-  NAME("name"), CREATED_AT("createdAt");
+  NAME("name"), CREATED_AT("createdAt"), REALIZATION_DATE("realizationDate");
 
   public final String label;
 

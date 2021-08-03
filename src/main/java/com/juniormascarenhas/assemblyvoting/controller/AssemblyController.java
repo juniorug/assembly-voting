@@ -22,11 +22,12 @@ import com.juniormascarenhas.assemblyvoting.entity.Assembly;
 import com.juniormascarenhas.assemblyvoting.entity.TopicSession;
 import com.juniormascarenhas.assemblyvoting.request.AssemblyRequest;
 import com.juniormascarenhas.assemblyvoting.request.GetAssemblysQueryParam;
+import com.juniormascarenhas.assemblyvoting.request.TopicSessionRequest;
 import com.juniormascarenhas.assemblyvoting.response.AssemblyResponse;
 import com.juniormascarenhas.assemblyvoting.service.AssemblyService;
 
 @RestController
-@RequestMapping(path = "/assembly", produces = "application/json")
+@RequestMapping(path = "Assemblies", produces = "application/json")
 public class AssemblyController {
 
   private static final String X_API_VERSION_1 = "X-API-VERSION=1";
@@ -45,8 +46,14 @@ public class AssemblyController {
         .body(assemblys.getContent().stream().map(Assembly::toResponse).collect(Collectors.toList()));
   }
 
+  @GetMapping(path = "/{assemblyId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<AssemblyResponse> getAssembly(@PathVariable String assemblyId) {
+    AssemblyResponse assembly = assemblyService.findById(assemblyId);
+    return ResponseEntity.ok(assembly);
+  }
+
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, headers = X_API_VERSION_1)
-  public ResponseEntity<Assembly> save(@RequestBody @Valid AssemblyRequest assembly) {
+  public ResponseEntity<Void> save(@RequestBody @Valid AssemblyRequest assembly) {
     String assemblyId = assemblyService.createAssembly(assembly);
     return ResponseEntity
         .created(
@@ -54,22 +61,12 @@ public class AssemblyController {
         .build();
   }
 
-  @PostMapping("{assemblyId}/topic-session")
+  @PostMapping(path = "{assemblyId}/topic-session", consumes = MediaType.APPLICATION_JSON_VALUE, headers = X_API_VERSION_1)
   public ResponseEntity<TopicSession> createTopicSession(@PathVariable(value = "assemblyId") String assemblyId,
-      @Valid @RequestBody TopicSession topicSession) {
+      @RequestBody @Valid TopicSessionRequest topicSession) {
     String topicSessionId = assemblyService.createTopicSession(assemblyId, topicSession);
     return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{assemblyId}/topic-session/")
         .buildAndExpand(topicSessionId).toUri()).build();
-  }
-
-  /*
-   * @GetMapping(headers = "X-API-VERSION=1") public String hello() { return
-   * "It is running!!"; }
-   */
-
-  @GetMapping(headers = "X-API-VERSION=2")
-  public String helloV2() {
-    return "V2222222222222222222222222222222";
   }
 
 }

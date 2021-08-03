@@ -17,6 +17,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.juniormascarenhas.assemblyvoting.enumeration.TopicResult;
+import com.juniormascarenhas.assemblyvoting.response.TopicSessionResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -72,5 +73,17 @@ public class TopicSession implements Serializable {
   @ManyToOne
   @JoinColumn(name = "ASSEMBLY_ID")
   private Assembly assembly;
+
+  @Column(name = "CREATED_AT")
+  private LocalDateTime createdAt;
+
+  @Column(name = "UPDATED_AT")
+  private LocalDateTime updatedAt;
+
+  public TopicSessionResponse toResponse() {
+    return TopicSessionResponse.builder().id(id).description(description).timeToBeOpen(timeToBeOpen)
+        .timeOpenned(timeOpenned).status(status).createdAt(createdAt).updatedAt(updatedAt).assemblyId(assembly.getId())
+        .topicResultId(result.name()).votes(votes).build();
+  }
 
 }

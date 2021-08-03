@@ -1,0 +1,132 @@
+swagger: "2.0"
+info:
+  description: "Allows associates' vote through topic sessions under assemblies."
+  version: "1.0.0"
+  title: API Assembly Voting
+consumes:
+- "application/json"
+produces:
+- "application/json"
+schemes:
+  - http
+host: juniormascarenhas.com
+basePath: /assembly-voting
+tags:
+  - name: Assemblies
+    description: Operations regarding Assemblies
+  - name: Topic Sessions
+    description: Operations regarding Topic Sessions
+  - name: Associates
+    description: Operations regarding Associates
+  - name: Votes
+    description: Operations regarding Votes
+parameters:
+  acceptLanguage:
+    name: Accept-Language
+    description: Response message language.
+    in: header
+    type: string
+    enum:
+      - en-US
+      - pt-BR
+    default: en-US
+  limit:
+    name: _limit
+    description: Identification of the number of records to be returned.
+    in: query
+    type: integer
+    format: int32
+    default: 20
+  offset:
+    name: _offset
+    description: Identification of the initial record to be returned.
+    in: query
+    type: integer
+    format: int32
+    default: 0
+  sort:
+    name: _sort
+    description: Type of sorting, ascending or descending.
+    in: query
+    type: string
+    enum:
+      - ASC
+      - DESC
+    default: ASC
+paths:
+  /Assemblies:
+    get:
+      tags:
+        - Assemblies
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Assembly"
+definitions:
+  Assembly:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      description:
+        type: "string"
+      realizationDate:
+        type: "string"
+      createdAt:
+        type: "string"
+      updatedAt:
+        type: "string"
+      topicSessions:
+        type: array
+        items:
+          $ref: "#/definitions/TopicSession"
+  Associated:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      cpf:
+        type: "string"
+  TopicSession:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      description:
+        type: "string"
+      timeToBeOpen:
+        type: "string"
+      timeOpenned:
+        type: "string"
+      status:
+        type: "string"
+      votes:
+        type: array
+        items:
+          $ref: "#/definitions/Vote"
+      result:
+        type: "string"
+      assembly:
+        $ref: "#/definitions/Assembly"
+      createdAt:
+        type: "string"
+      updatedAt:
+        type: "string"
+  Vote:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      associated:
+        $ref: "#/definitions/Associated"
+      topicSession:
+        $ref: "#/definitions/TopicSession"
+  

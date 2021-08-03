@@ -22,21 +22,20 @@ import com.juniormascarenhas.assemblyvoting.repository.AssemblyRepository;
 import com.juniormascarenhas.assemblyvoting.repository.TopicSessionRepository;
 import com.juniormascarenhas.assemblyvoting.request.AssemblyRequest;
 import com.juniormascarenhas.assemblyvoting.request.GetAssemblysQueryParam;
+import com.juniormascarenhas.assemblyvoting.request.TopicSessionRequest;
+import com.juniormascarenhas.assemblyvoting.response.AssemblyResponse;
 
 @Service
 public class AssemblyService {
 
   private static final String REALIZATION_DATE = "realizationDate";
+  private static final String NAME = "name";
 
   @Autowired
   private AssemblyRepository assemblyRepository;
 
   @Autowired
   private TopicSessionRepository topicSessionRepository;
-
-  public String save(Assembly assembly) {
-    return assemblyRepository.save(assembly).getId();
-  }
 
   @Transactional
   public String createAssembly(AssemblyRequest assemblyRequest) {
@@ -46,8 +45,23 @@ public class AssemblyService {
     return assemblyRepository.save(assemblyRequest.toEntity()).getId();
   }
 
+  @Transactional
+  public String createTopicSession(String assemblyId, TopicSessionRequest topicSessionRequest) {
+    return assemblyRepository.findById(assemblyId).map(assembly -> {
+
+      topicSessionRepository.findByNameAndAssembly(topicSessionRequest.getName(), assembly).ifPresent(e -> {
+        throw new EntityAlreadyExistsException(NAME);
+      });
+
+      TopicSession topicSession = topicSessionRequest.toEntity(assembly);
+      topicSession.setStatus(SessionStatus.CREATED.name());
+      topicSession.setTimeOpenned(LocalDateTime.now());
+      topicSession.setAssembly(assembly);
+      return topicSessionRepository.save(topicSession).getId();
+    }).orElseThrow(() -> new ResourceNotFoundException("AssemblyId " + assemblyId + " not found"));
+  }
+
   public Page<Assembly> listAssemblys(GetAssemblysQueryParam params) {
-    System.out.println("params: " + params.toString());
     Pageable pageable = PageRequest.of(params.getOffset(), params.getLimit(), params.getSort().getSortBy());
     Page<Assembly> assemblys;
     if (StringUtils.isNotBlank(params.getKeywords())) {
@@ -58,13 +72,10 @@ public class AssemblyService {
     return assemblys;
   }
 
-  public Assembly findById(String id) {
-    Optional<Assembly> assemblyOptional = assemblyRepository.findById(id);
-    if (assemblyOptional.isPresent()) {
-      return assemblyOptional.get();
-    } else {
-      throw new ResourceNotFoundException();
-    }
+  public AssemblyResponse findById(String assemblyId) {
+    AssemblyResponse assemblyResponse = assemblyRepository.findById(assemblyId).map(Assembly::toResponse)
+        .orElseThrow(ResourceNotFoundException::new);
+    return assemblyResponse;
   }
 
   public Optional<Assembly> findByRealizationDate(LocalDateTime realizationDate) {
@@ -92,12 +103,4 @@ public class AssemblyService {
     assemblyRepository.deleteAll();
   }
 
-  public String createTopicSession(String assemblyId, TopicSession topicSession) {
-    return assemblyRepository.findById(assemblyId).map(assembly -> {
-      topicSession.setStatus(SessionStatus.CREATED.name());
-      topicSession.setTimeOpenned(LocalDateTime.now());
-      topicSession.setAssembly(assembly);
-      return topicSessionRepository.save(topicSession).getId();
-    }).orElseThrow(() -> new ResourceNotFoundException("AssemblyId " + assemblyId + " not found"));
-  }
 }

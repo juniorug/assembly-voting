@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.juniormascarenhas.assemblyvoting.entity.Assembly;
 import com.juniormascarenhas.assemblyvoting.entity.TopicSession;
 
 public interface TopicSessionRepository extends JpaRepository<TopicSession, String> {
@@ -13,5 +14,7 @@ public interface TopicSessionRepository extends JpaRepository<TopicSession, Stri
   Optional<TopicSession> findById(String id);
 
   List<TopicSession> findByName(String name);
+
+  Optional<TopicSession> findByNameAndAssembly(String name, Assembly assembly);
 
 }

@@ -52,7 +52,7 @@ public class AssociatedController {
         .body(associateds.getContent().stream().map(Associated::toResponse).collect(Collectors.toList()));
   }
 
-  @GetMapping(path = "/{associatedId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(path = "/{associatedId}", produces = MediaType.APPLICATION_JSON_VALUE, headers = X_API_VERSION_1)
   public ResponseEntity<AssociatedResponse> getAssociated(@PathVariable String associatedId) {
     AssociatedResponse associated = associatedService.findById(associatedId);
     return ResponseEntity.ok(associated);

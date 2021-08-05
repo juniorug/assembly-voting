@@ -22,6 +22,7 @@ import com.juniormascarenhas.assemblyvoting.config.ApplicationConfig;
 import com.juniormascarenhas.assemblyvoting.entity.TopicSession;
 import com.juniormascarenhas.assemblyvoting.entity.Vote;
 import com.juniormascarenhas.assemblyvoting.request.GetQueryParam;
+import com.juniormascarenhas.assemblyvoting.request.VoteRequest;
 import com.juniormascarenhas.assemblyvoting.response.TopicSessionResponse;
 import com.juniormascarenhas.assemblyvoting.service.TopicSessionService;
 
@@ -45,7 +46,7 @@ public class TopicSessionController {
         .body(topicSessions.getContent().stream().map(TopicSession::toResponse).collect(Collectors.toList()));
   }
 
-  @GetMapping(path = "/{topicSessionId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(path = "/{topicSessionId}", produces = MediaType.APPLICATION_JSON_VALUE, headers = X_API_VERSION_1)
   public ResponseEntity<TopicSessionResponse> getTopicSession(@PathVariable String topicSessionId) {
     TopicSessionResponse topicSession = topicSessionService.findById(topicSessionId);
     return ResponseEntity.ok(topicSession);
@@ -57,9 +58,9 @@ public class TopicSessionController {
     return ResponseEntity.ok(topicSession);
   }
 
-  @PostMapping("{topicSessionId}/associates/{associatedId}/vote")
+  @PostMapping(path = "{topicSessionId}/associates/{associatedId}/votes", consumes = MediaType.APPLICATION_JSON_VALUE, headers = X_API_VERSION_1)
   public ResponseEntity<Vote> vote(@PathVariable(value = "topicSessionId") String topicSessionId,
-      @PathVariable(value = "associatedId") String associatedId, @Valid @RequestBody Vote vote) {
+      @PathVariable(value = "associatedId") String associatedId, @Valid @RequestBody VoteRequest vote) {
     String voteId = topicSessionService.vote(topicSessionId, associatedId, vote);
     return ResponseEntity
         .created(ServletUriComponentsBuilder.fromCurrentRequest().path("/vote").buildAndExpand(voteId).toUri()).build();

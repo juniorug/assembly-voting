@@ -28,7 +28,7 @@ import com.juniormascarenhas.assemblyvoting.response.AssemblyResponse;
 public class AssemblyService {
 
   private static final String REALIZATION_DATE = "realizationDate";
-  private static final String NAME = "name";
+  private static final String NAME_AND_ASSEMBLY = "name and assembly";
 
   @Autowired
   private AssemblyRepository assemblyRepository;
@@ -49,7 +49,7 @@ public class AssemblyService {
     return assemblyRepository.findById(assemblyId).map(assembly -> {
 
       topicSessionRepository.findByNameAndAssembly(topicSessionRequest.getName(), assembly).ifPresent(e -> {
-        throw new EntityAlreadyExistsException(NAME);
+        throw new EntityAlreadyExistsException(NAME_AND_ASSEMBLY);
       });
 
       TopicSession topicSession = topicSessionRequest.toEntity(assembly);
@@ -77,6 +77,7 @@ public class AssemblyService {
     return assemblyRepository.findByRealizationDate(realizationDate);
   }
 
+  @Transactional
   public Assembly update(String id, Assembly newAssembly) {
     Optional<Assembly> assembly = assemblyRepository.findById(id);
     if (assembly.isPresent()) {
@@ -90,10 +91,14 @@ public class AssemblyService {
     return null;
   }
 
+  @Transactional
   public void deleteById(String id) {
-    assemblyRepository.deleteById(id);
+    assemblyRepository.findById(id).ifPresent(assembly -> {
+      assemblyRepository.delete(assembly);
+    });
   }
 
+  @Transactional
   public void deleteAll() {
     assemblyRepository.deleteAll();
   }

@@ -3,6 +3,8 @@ package com.juniormascarenhas.assemblyvoting.service;
 import java.util.Optional;
 import java.util.function.Function;
 
+import javax.transaction.Transactional;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -50,8 +52,11 @@ public class VoteService {
     return null;
   }
 
+  @Transactional
   public void deleteById(String id) {
-    voteRepository.deleteById(id);
+    voteRepository.findById(id).ifPresent(vote -> {
+      voteRepository.delete(vote);
+    });
   }
 
   public void deleteAll() {

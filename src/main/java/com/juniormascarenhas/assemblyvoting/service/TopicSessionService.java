@@ -3,6 +3,8 @@ package com.juniormascarenhas.assemblyvoting.service;
 import java.util.Optional;
 import java.util.function.Function;
 
+import javax.transaction.Transactional;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,15 +17,20 @@ import com.juniormascarenhas.assemblyvoting.entity.Associated;
 import com.juniormascarenhas.assemblyvoting.entity.TopicSession;
 import com.juniormascarenhas.assemblyvoting.entity.Vote;
 import com.juniormascarenhas.assemblyvoting.enumeration.SessionStatus;
+import com.juniormascarenhas.assemblyvoting.exception.EntityAlreadyExistsException;
 import com.juniormascarenhas.assemblyvoting.exception.ResourceNotFoundException;
 import com.juniormascarenhas.assemblyvoting.repository.AssociatedRepository;
 import com.juniormascarenhas.assemblyvoting.repository.TopicSessionRepository;
 import com.juniormascarenhas.assemblyvoting.repository.VoteRepository;
 import com.juniormascarenhas.assemblyvoting.request.GetQueryParam;
+import com.juniormascarenhas.assemblyvoting.request.VoteRequest;
 import com.juniormascarenhas.assemblyvoting.response.TopicSessionResponse;
 
 @Service
 public class TopicSessionService {
+
+  private static final String TOPIC_SESSION_AND_ASSOCIATED = "topicSession and associated";
+
   @Autowired
   private TopicSessionRepository topicSessionRepository;
 
@@ -53,6 +60,7 @@ public class TopicSessionService {
     return new PageImpl<>(topicSessionRepository.findByName(name));
   }
 
+  @Transactional
   public TopicSession update(String id, TopicSession newTopicSession) {
     Optional<TopicSession> topicSession = topicSessionRepository.findById(id);
     if (topicSession.isPresent()) {
@@ -73,6 +81,7 @@ public class TopicSessionService {
     }
   }
 
+  @Transactional
   public TopicSession openSession(String id) {
     Optional<TopicSession> topicSession = topicSessionRepository.findById(id);
     if (topicSession.isPresent()) {
@@ -84,20 +93,28 @@ public class TopicSessionService {
     }
   }
 
+  @Transactional
   public void deleteById(String id) {
-    topicSessionRepository.deleteById(id);
+    topicSessionRepository.findById(id).ifPresent(topicSession -> {
+      topicSessionRepository.delete(topicSession);
+    });
   }
 
   public void deleteAll() {
     topicSessionRepository.deleteAll();
   }
 
-  public String vote(String topicSessionId, String associatedId, Vote vote) {
+  @Transactional
+  public String vote(String topicSessionId, String associatedId, VoteRequest voteRequest) {
     Optional<TopicSession> topicSession = topicSessionRepository.findById(topicSessionId);
     Optional<Associated> associated = associatedRepository.findById(associatedId);
     if (topicSession.isPresent() && associated.isPresent()) {
-      vote.setTopicSession(topicSession.get());
-      vote.setAssociated(associated.get());
+
+      voteRepository.findByTopicSessionAndAssociated(topicSession.get(), associated.get()).ifPresent(e -> {
+        throw new EntityAlreadyExistsException(TOPIC_SESSION_AND_ASSOCIATED);
+      });
+
+      Vote vote = voteRequest.toEntity(associated.get(), topicSession.get());
       return voteRepository.save(vote).getId();
     } else {
       throw new ResourceNotFoundException();

@@ -57,6 +57,7 @@ public class AssociatedService {
     return new PageImpl<>(associatedRepository.findByName(name));
   }
 
+  @Transactional
   public Associated update(String id, Associated newAssociated) {
     Optional<Associated> associated = associatedRepository.findById(id);
     if (associated.isPresent()) {
@@ -71,8 +72,11 @@ public class AssociatedService {
     return null;
   }
 
+  @Transactional
   public void deleteById(String id) {
-    associatedRepository.deleteById(id);
+    associatedRepository.findById(id).ifPresent(associated -> {
+      associatedRepository.delete(associated);
+    });
   }
 
   public void deleteAll() {

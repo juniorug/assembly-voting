@@ -46,7 +46,7 @@ public class AssemblyController {
         .body(assemblys.getContent().stream().map(Assembly::toResponse).collect(Collectors.toList()));
   }
 
-  @GetMapping(path = "/{assemblyId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(path = "/{assemblyId}", produces = MediaType.APPLICATION_JSON_VALUE, headers = X_API_VERSION_1)
   public ResponseEntity<AssemblyResponse> getAssembly(@PathVariable String assemblyId) {
     AssemblyResponse assembly = assemblyService.findById(assemblyId);
     return ResponseEntity.ok(assembly);

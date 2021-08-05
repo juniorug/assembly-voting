@@ -34,6 +34,7 @@ public class VoteRequest {
         .createdAt(LocalDateTime.now())
         .associated(associated)
         .topicSession(topicSession)
+        .value(value)
         .build();
   }
 
@@ -44,6 +45,7 @@ public class VoteRequest {
         .updatedAt(LocalDateTime.now())
         .associated(vote.getAssociated())
         .topicSession(vote.getTopicSession())
+        .value(vote.getValue())
         .build();
   }
 

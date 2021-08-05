@@ -7,25 +7,26 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import com.juniormascarenhas.assemblyvoting.factory.GetAssemblysQueryParamFactory;
-import com.juniormascarenhas.assemblyvoting.request.GetAssemblysQueryParam;
+import com.juniormascarenhas.assemblyvoting.factory.GetQueryParamFactory;
+import com.juniormascarenhas.assemblyvoting.request.GetQueryParam;
 
 import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class AssemblyQueryParamResolver implements HandlerMethodArgumentResolver {
+public class QueryParamResolver implements HandlerMethodArgumentResolver {
 
-  private final GetAssemblysQueryParamFactory factory;
+  private final GetQueryParamFactory factory;
 
   @Override
   public boolean supportsParameter(MethodParameter parameter) {
-    return parameter.getParameterType().equals(GetAssemblysQueryParam.class);
+    return parameter.getParameterType().equals(GetQueryParam.class);
   }
 
   @Override
   public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
       NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
-    return factory.createGetAssemblysQueryParam(webRequest);
+    return factory.createGetQueryParam(webRequest);
   }
 }
+//

@@ -15,13 +15,12 @@ import org.springframework.stereotype.Service;
 
 import com.juniormascarenhas.assemblyvoting.entity.Assembly;
 import com.juniormascarenhas.assemblyvoting.entity.TopicSession;
-import com.juniormascarenhas.assemblyvoting.enumeration.SessionStatus;
 import com.juniormascarenhas.assemblyvoting.exception.EntityAlreadyExistsException;
 import com.juniormascarenhas.assemblyvoting.exception.ResourceNotFoundException;
 import com.juniormascarenhas.assemblyvoting.repository.AssemblyRepository;
 import com.juniormascarenhas.assemblyvoting.repository.TopicSessionRepository;
 import com.juniormascarenhas.assemblyvoting.request.AssemblyRequest;
-import com.juniormascarenhas.assemblyvoting.request.GetAssemblysQueryParam;
+import com.juniormascarenhas.assemblyvoting.request.GetQueryParam;
 import com.juniormascarenhas.assemblyvoting.request.TopicSessionRequest;
 import com.juniormascarenhas.assemblyvoting.response.AssemblyResponse;
 
@@ -54,14 +53,11 @@ public class AssemblyService {
       });
 
       TopicSession topicSession = topicSessionRequest.toEntity(assembly);
-      topicSession.setStatus(SessionStatus.CREATED.name());
-      topicSession.setTimeOpenned(LocalDateTime.now());
-      topicSession.setAssembly(assembly);
       return topicSessionRepository.save(topicSession).getId();
     }).orElseThrow(() -> new ResourceNotFoundException("AssemblyId " + assemblyId + " not found"));
   }
 
-  public Page<Assembly> listAssemblys(GetAssemblysQueryParam params) {
+  public Page<Assembly> listAssemblys(GetQueryParam params) {
     Pageable pageable = PageRequest.of(params.getOffset(), params.getLimit(), params.getSort().getSortBy());
     Page<Assembly> assemblys;
     if (StringUtils.isNotBlank(params.getKeywords())) {
@@ -73,9 +69,8 @@ public class AssemblyService {
   }
 
   public AssemblyResponse findById(String assemblyId) {
-    AssemblyResponse assemblyResponse = assemblyRepository.findById(assemblyId).map(Assembly::toResponse)
+    return assemblyRepository.findById(assemblyId).map(Assembly::toResponse)
         .orElseThrow(ResourceNotFoundException::new);
-    return assemblyResponse;
   }
 
   public Optional<Assembly> findByRealizationDate(LocalDateTime realizationDate) {

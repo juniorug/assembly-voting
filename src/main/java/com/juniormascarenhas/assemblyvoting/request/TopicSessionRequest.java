@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 import com.juniormascarenhas.assemblyvoting.entity.Assembly;
 import com.juniormascarenhas.assemblyvoting.entity.TopicSession;
 import com.juniormascarenhas.assemblyvoting.entity.Vote;
+import com.juniormascarenhas.assemblyvoting.enumeration.SessionStatus;
 import com.juniormascarenhas.assemblyvoting.exception.Messages;
 
 import lombok.AllArgsConstructor;
@@ -39,6 +40,7 @@ public class TopicSessionRequest {
         .name(name)
         .description(description)
         .assembly(assembly)
+        .status(SessionStatus.CREATED)
         .timeToBeOpen(timeToBeOpen)
         .build();
   }

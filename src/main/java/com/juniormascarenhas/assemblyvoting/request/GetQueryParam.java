@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetAssemblysQueryParam {
+public class GetQueryParam {
 
   private Integer limit;
 

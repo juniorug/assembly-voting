@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.juniormascarenhas.assemblyvoting.component.AssemblyQueryParamResolver;
+import com.juniormascarenhas.assemblyvoting.component.QueryParamResolver;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,7 +21,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
   private final ObjectMapper objectMapper;
 
-  private final AssemblyQueryParamResolver assemblyQueryParamResolver;
+  private final QueryParamResolver queryParamResolver;
 
   @Override
   public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -34,7 +34,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
   @Override
   public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-    resolvers.add(assemblyQueryParamResolver);
+    resolvers.add(queryParamResolver);
     // resolvers.add(otherResolver);
   }
 }

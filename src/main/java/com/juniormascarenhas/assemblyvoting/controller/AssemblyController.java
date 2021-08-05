@@ -21,13 +21,13 @@ import com.juniormascarenhas.assemblyvoting.config.ApplicationConfig;
 import com.juniormascarenhas.assemblyvoting.entity.Assembly;
 import com.juniormascarenhas.assemblyvoting.entity.TopicSession;
 import com.juniormascarenhas.assemblyvoting.request.AssemblyRequest;
-import com.juniormascarenhas.assemblyvoting.request.GetAssemblysQueryParam;
+import com.juniormascarenhas.assemblyvoting.request.GetQueryParam;
 import com.juniormascarenhas.assemblyvoting.request.TopicSessionRequest;
 import com.juniormascarenhas.assemblyvoting.response.AssemblyResponse;
 import com.juniormascarenhas.assemblyvoting.service.AssemblyService;
 
 @RestController
-@RequestMapping(path = "Assemblies", produces = "application/json")
+@RequestMapping(path = "assemblies", produces = "application/json")
 public class AssemblyController {
 
   private static final String X_API_VERSION_1 = "X-API-VERSION=1";
@@ -38,7 +38,7 @@ public class AssemblyController {
   private final ApplicationConfig applicationConfig = new ApplicationConfig();
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, headers = X_API_VERSION_1)
-  public ResponseEntity<List<AssemblyResponse>> getAssemblys(GetAssemblysQueryParam params) {
+  public ResponseEntity<List<AssemblyResponse>> getAssemblys(GetQueryParam params) {
     Page<Assembly> assemblys = assemblyService.listAssemblys(params);
     return ResponseEntity.ok()
         .header(ControllerConstants.HEADER_CONTENT_RANGE, String.valueOf(assemblys.getTotalElements()))

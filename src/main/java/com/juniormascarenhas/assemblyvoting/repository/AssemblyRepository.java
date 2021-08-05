@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.juniormascarenhas.assemblyvoting.entity.Assembly;
-import com.juniormascarenhas.assemblyvoting.request.GetAssemblysQueryParam;
+import com.juniormascarenhas.assemblyvoting.request.GetQueryParam;
 
 public interface AssemblyRepository extends JpaRepository<Assembly, String> {
 
@@ -19,9 +19,11 @@ public interface AssemblyRepository extends JpaRepository<Assembly, String> {
 
   Optional<Assembly> findByRealizationDate(LocalDateTime realizationDate);
 
-  @Query("select a from Assembly a where " + "(:#{#filter.keywords} is null or ("
-      + "a.id like %:#{#filter.keywords}% or " + "a.realizationDate like %:#{#filter.keywords}% or "
+  @Query("select a from Assembly a where " 
+      + "(:#{#filter.keywords} is null or ("
+      + "a.id like %:#{#filter.keywords}% or " 
+      + "a.realizationDate like %:#{#filter.keywords}% or "
       + "a.description like %:#{#filter.keywords}%))")
-  Page<Assembly> findAllByKeywords(@Param("filter") GetAssemblysQueryParam params, Pageable pageable);
+  Page<Assembly> findAllByKeywords(@Param("filter") GetQueryParam params, Pageable pageable);
 
 }

@@ -1,11 +1,14 @@
 package com.juniormascarenhas.assemblyvoting.service;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.juniormascarenhas.assemblyvoting.entity.Associated;
@@ -16,6 +19,8 @@ import com.juniormascarenhas.assemblyvoting.exception.ResourceNotFoundException;
 import com.juniormascarenhas.assemblyvoting.repository.AssociatedRepository;
 import com.juniormascarenhas.assemblyvoting.repository.TopicSessionRepository;
 import com.juniormascarenhas.assemblyvoting.repository.VoteRepository;
+import com.juniormascarenhas.assemblyvoting.request.GetQueryParam;
+import com.juniormascarenhas.assemblyvoting.response.TopicSessionResponse;
 
 @Service
 public class TopicSessionService {
@@ -28,27 +33,24 @@ public class TopicSessionService {
   @Autowired
   private AssociatedRepository associatedRepository;
 
-  public String save(TopicSession topicSession) {
-    topicSession.setStatus(SessionStatus.CREATED.name());
-    topicSession.setTimeOpenned(LocalDateTime.now());
-    return topicSessionRepository.save(topicSession).getId();
-  }
-
-  public List<TopicSession> getAll() {
-    return topicSessionRepository.findAll();
-  }
-
-  public TopicSession findById(String id) {
-    Optional<TopicSession> topicSessionOptional = topicSessionRepository.findById(id);
-    if (topicSessionOptional.isPresent()) {
-      return topicSessionOptional.get();
+  public Page<TopicSession> listTopicSessions(GetQueryParam params) {
+    Pageable pageable = PageRequest.of(params.getOffset(), params.getLimit(), params.getSort().getSortBy());
+    Page<TopicSession> topicSessions;
+    if (StringUtils.isNotBlank(params.getKeywords())) {
+      topicSessions = topicSessionRepository.findAllByKeywords(params, pageable);
     } else {
-      throw new ResourceNotFoundException();
+      topicSessions = topicSessionRepository.findAll(pageable);
     }
+    return topicSessions;
   }
 
-  public List<TopicSession> findByName(String name) {
-    return topicSessionRepository.findByName(name);
+  public TopicSessionResponse findById(String id) {
+    return topicSessionRepository.findById(id).map(TopicSession::toResponse)
+        .orElseThrow(ResourceNotFoundException::new);
+  }
+
+  public Page<TopicSession> findByName(String name) {
+    return new PageImpl<>(topicSessionRepository.findByName(name));
   }
 
   public TopicSession update(String id, TopicSession newTopicSession) {
@@ -58,7 +60,7 @@ public class TopicSessionService {
         item.setName(newTopicSession.getName());
         item.setDescription(newTopicSession.getDescription());
         item.setTimeToBeOpen(newTopicSession.getTimeToBeOpen());
-        item.setTimeOpenned(newTopicSession.getTimeOpenned());
+        item.setDateTimeOpenned(newTopicSession.getDateTimeOpenned());
         item.setStatus(newTopicSession.getStatus());
         item.setVotes(newTopicSession.getVotes());
         item.setResult(newTopicSession.getResult());
@@ -74,7 +76,7 @@ public class TopicSessionService {
   public TopicSession openSession(String id) {
     Optional<TopicSession> topicSession = topicSessionRepository.findById(id);
     if (topicSession.isPresent()) {
-      topicSession.get().setStatus(SessionStatus.OPENED.name());
+      topicSession.get().setStatus(SessionStatus.OPENED);
       topicSessionRepository.save(topicSession.get());
       return topicSession.get();
     } else {

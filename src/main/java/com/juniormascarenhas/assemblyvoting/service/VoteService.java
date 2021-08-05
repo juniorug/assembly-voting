@@ -1,15 +1,20 @@
 package com.juniormascarenhas.assemblyvoting.service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.juniormascarenhas.assemblyvoting.entity.Vote;
 import com.juniormascarenhas.assemblyvoting.exception.ResourceNotFoundException;
 import com.juniormascarenhas.assemblyvoting.repository.VoteRepository;
+import com.juniormascarenhas.assemblyvoting.request.GetQueryParam;
+import com.juniormascarenhas.assemblyvoting.response.VoteResponse;
 
 @Service
 public class VoteService {
@@ -17,21 +22,19 @@ public class VoteService {
   @Autowired
   private VoteRepository voteRepository;
 
-  public String save(Vote vote) {
-    return voteRepository.save(vote).getId();
-  }
-
-  public List<Vote> getAll() {
-    return voteRepository.findAll();
-  }
-
-  public Vote findById(String id) {
-    Optional<Vote> voteOptional = voteRepository.findById(id);
-    if (voteOptional.isPresent()) {
-      return voteOptional.get();
+  public Page<Vote> listVotes(GetQueryParam params) {
+    Pageable pageable = PageRequest.of(params.getOffset(), params.getLimit(), params.getSort().getSortBy());
+    Page<Vote> votes;
+    if (StringUtils.isNotBlank(params.getKeywords())) {
+      votes = voteRepository.findAllByKeywords(params, pageable);
     } else {
-      throw new ResourceNotFoundException();
+      votes = voteRepository.findAll(pageable);
     }
+    return votes;
+  }
+
+  public VoteResponse findById(String voteId) {
+    return voteRepository.findById(voteId).map(Vote::toResponse).orElseThrow(ResourceNotFoundException::new);
   }
 
   public Vote update(String id, Vote newVote) {

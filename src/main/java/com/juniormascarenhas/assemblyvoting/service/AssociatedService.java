@@ -1,41 +1,60 @@
 package com.juniormascarenhas.assemblyvoting.service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
+import javax.transaction.Transactional;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.juniormascarenhas.assemblyvoting.entity.Associated;
+import com.juniormascarenhas.assemblyvoting.exception.EntityAlreadyExistsException;
 import com.juniormascarenhas.assemblyvoting.exception.ResourceNotFoundException;
 import com.juniormascarenhas.assemblyvoting.repository.AssociatedRepository;
+import com.juniormascarenhas.assemblyvoting.request.AssociatedRequest;
+import com.juniormascarenhas.assemblyvoting.request.GetQueryParam;
+import com.juniormascarenhas.assemblyvoting.response.AssociatedResponse;
 
 @Service
 public class AssociatedService {
 
+  private static final String CPF = "cpf";
+
   @Autowired
   private AssociatedRepository associatedRepository;
 
-  public String save(Associated associated) {
-    return associatedRepository.save(associated).getId();
+  @Transactional
+  public String createAssociated(AssociatedRequest associatedRequest) {
+    associatedRepository.findByCpf(associatedRequest.getCpf()).ifPresent(e -> {
+      throw new EntityAlreadyExistsException(CPF);
+    });
+    return associatedRepository.save(associatedRequest.toEntity()).getId();
   }
 
-  public List<Associated> getAll() {
-    return associatedRepository.findAll();
-  }
-
-  public Associated findById(String id) {
-    Optional<Associated> associatedOptional = associatedRepository.findById(id);
-    if (associatedOptional.isPresent()) {
-      return associatedOptional.get();
+  public Page<Associated> listAssociates(GetQueryParam params) {
+    Pageable pageable = PageRequest.of(params.getOffset(), params.getLimit(), params.getSort().getSortBy());
+    Page<Associated> associates;
+    if (StringUtils.isNotBlank(params.getKeywords())) {
+      associates = associatedRepository.findAllByKeywords(params, pageable);
     } else {
-      throw new ResourceNotFoundException();
+      associates = associatedRepository.findAll(pageable);
     }
+    return associates;
   }
 
-  public List<Associated> findByName(String name) {
-    return associatedRepository.findByName(name);
+  public AssociatedResponse findById(String associatedId) {
+    return associatedRepository.findById(associatedId).map(Associated::toResponse)
+        .orElseThrow(ResourceNotFoundException::new);
+  }
+
+  public Page<Associated> findByName(String name) {
+    return new PageImpl<>(associatedRepository.findByName(name));
   }
 
   public Associated update(String id, Associated newAssociated) {

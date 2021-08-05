@@ -8,20 +8,20 @@ import org.springframework.web.context.request.NativeWebRequest;
 
 import com.juniormascarenhas.assemblyvoting.exception.InvalidParamException;
 import com.juniormascarenhas.assemblyvoting.exception.MessageError;
-import com.juniormascarenhas.assemblyvoting.request.GetAssemblysQueryParam;
+import com.juniormascarenhas.assemblyvoting.request.GetQueryParam;
 
 import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class GetAssemblysQueryParamFactory {
+public class GetQueryParamFactory {
 
   private final QueryParamFactory queryParamFactory;
 
-  public GetAssemblysQueryParam createGetAssemblysQueryParam(NativeWebRequest webRequest) {
+  public GetQueryParam createGetQueryParam(NativeWebRequest webRequest) {
     List<MessageError> errors = new ArrayList<>();
 
-    GetAssemblysQueryParam.GetAssemblysQueryParamBuilder builder = GetAssemblysQueryParam.builder()
+    GetQueryParam.GetQueryParamBuilder builder = GetQueryParam.builder()
         .keywords(queryParamFactory.createString(webRequest, "keywords"))
         .limit(queryParamFactory.createLimit(webRequest, errors))
         .offset(queryParamFactory.createOffset(webRequest, errors))

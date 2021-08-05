@@ -8,12 +8,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.juniormascarenhas.assemblyvoting.entity.Assembly;
 import com.juniormascarenhas.assemblyvoting.entity.TopicSession;
 import com.juniormascarenhas.assemblyvoting.enumeration.TopicResult;
 import com.juniormascarenhas.assemblyvoting.request.GetQueryParam;
 
+@Repository
 public interface TopicSessionRepository extends JpaRepository<TopicSession, String> {
 
   @Override
@@ -30,7 +32,7 @@ public interface TopicSessionRepository extends JpaRepository<TopicSession, Stri
       + "(:#{#filter.keywords} is null or ("
       + "ts.id like %:#{#filter.keywords}% or " 
       + "ts.name like %:#{#filter.keywords}% or "
-      + "ts.statis like %:#{#filter.keywords}% or " 
+      + "ts.status like %:#{#filter.keywords}% or " 
       + "ts.result like %:#{#filter.keywords}% or "
       + "ts.description like %:#{#filter.keywords}%))")
   Page<TopicSession> findAllByKeywords(@Param("filter") GetQueryParam params, Pageable pageable);

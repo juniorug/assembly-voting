@@ -7,6 +7,383 @@
 	},
 	"item": [
 		{
+			"name": "Associated",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "getAssociatedById",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-VERSION",
+										"value": "{{X-API-VERSION}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/{{associates}}/{{associatedId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{associates}}",
+										"{{associatedId}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "No Content",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/craft-beers/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"craft-beers",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/craft-beers/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"craft-beers",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"abv\": \"<number>\",\n \"breweryName\": \"<string>\",\n \"categoryName\": \"<string>\",\n \"ibu\": \"<integer>\",\n \"id\": \"<integer>\",\n \"name\": \"<string>\"\n}"
+								},
+								{
+									"name": "500 message",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/craft-beers/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"craft-beers",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found!",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/craft-beers/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"craft-beers",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-VERSION",
+								"value": "{{X-API-VERSION}}",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{associates}}?_limit=20&_offset=0&_sort=ASC",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{associates}}"
+							],
+							"query": [
+								{
+									"key": "_limit",
+									"value": "20"
+								},
+								{
+									"key": "_offset",
+									"value": "0"
+								},
+								{
+									"key": "_sort",
+									"value": "ASC"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "500 message",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/craft-beers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"craft-beers"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/craft-beers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"craft-beers"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"abv\": -40336130.71623665,\n  \"breweryName\": \"Excepteur laboris \",\n  \"categoryName\": \"deserunt con\",\n  \"ibu\": -77674758,\n  \"id\": 16870565,\n  \"name\": \"labore est nisi qui\"\n },\n {\n  \"abv\": -47438823.80423212,\n  \"breweryName\": \"deserunt dolor\",\n  \"categoryName\": \"occaecat quis tempor aute\",\n  \"ibu\": -93053105,\n  \"id\": 46507850,\n  \"name\": \"do dolore sit ipsum\"\n }\n]"
+						},
+						{
+							"name": "Not Found!",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/craft-beers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"craft-beers"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "No Content",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/craft-beers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"craft-beers"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "create Associated",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-API-VERSION",
+								"type": "text",
+								"value": "{{X-API-VERSION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Edivaldo Mascarenhas\",\n    \"cpf\": \"023.738.515-55\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{associates}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{associates}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/craft-beers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"craft-beers"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"abv\": \"<number>\",\n \"breweryName\": \"<string>\",\n \"categoryName\": \"<string>\",\n \"ibu\": \"<integer>\",\n \"id\": \"<integer>\",\n \"name\": \"<string>\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "Assembly",
 			"item": [
 				{
@@ -16,22 +393,21 @@
 							"name": "getAssemblyById",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "X-API-VERSION",
+										"value": "{{X-API-VERSION}}",
+										"type": "text"
+									}
+								],
 								"url": {
-									"raw": "{{baseUrl}}/assembly/:id",
+									"raw": "{{baseUrl}}/{{assemblies}}/{{assemblyId}}",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"assembly",
-										":id"
-									],
-									"variable": [
-										{
-											"description": "(Required) id",
-											"key": "id",
-											"value": "<long>"
-										}
+										"{{assemblies}}",
+										"{{assemblyId}}"
 									]
 								}
 							},
@@ -169,133 +545,6 @@
 									"body": "{\n \"abv\": \"<number>\",\n \"breweryName\": \"<string>\",\n \"categoryName\": \"<string>\",\n \"ibu\": \"<integer>\",\n \"id\": \"<integer>\",\n \"name\": \"<string>\"\n}"
 								}
 							]
-						},
-						{
-							"name": "updateAssembly",
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"abv\": \"<number>\",\n    \"breweryName\": \"<string>\",\n    \"categoryName\": \"<string>\",\n    \"ibu\": \"<integer>\",\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/assembly/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"assembly",
-										":id"
-									],
-									"variable": [
-										{
-											"description": "(Required) id",
-											"key": "id",
-											"value": "<long>"
-										}
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "OK",
-									"originalRequest": {
-										"method": "PUT",
-										"header": [],
-										"url": {
-											"raw": "{{baseUrl}}/craft-beers/:id",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"craft-beers",
-												":id"
-											],
-											"variable": [
-												{
-													"key": "id"
-												}
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "{\n \"abv\": \"<number>\",\n \"breweryName\": \"<string>\",\n \"categoryName\": \"<string>\",\n \"ibu\": \"<integer>\",\n \"id\": \"<integer>\",\n \"name\": \"<string>\"\n}"
-								}
-							]
-						},
-						{
-							"name": "deleteAssembly",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/assembly/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"assembly",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "<long>",
-											"description": "(Required) id"
-										}
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "OK",
-									"originalRequest": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "{{baseUrl}}/craft-beers/:id",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"craft-beers",
-												":id"
-											],
-											"variable": [
-												{
-													"key": "id"
-												}
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "{}"
-								}
-							]
 						}
 					]
 				},
@@ -306,17 +555,17 @@
 						"header": [
 							{
 								"key": "X-API-VERSION",
-								"value": "1",
+								"value": "{{X-API-VERSION}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/assembly?_limit=20&_offset=0&_sort=ASC",
+							"raw": "{{baseUrl}}/{{assemblies}}?_limit=20&_offset=0&_sort=ASC",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"assembly"
+								"{{assemblies}}"
 							],
 							"query": [
 								{
@@ -446,976 +695,7 @@
 					]
 				},
 				{
-					"name": "getVersion",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "X-API-VERSION",
-								"value": "2",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/assembly",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"assembly"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Not Found!",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "No Content",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "No Content",
-							"code": 204,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "500 message",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "[\n {\n  \"abv\": -40336130.71623665,\n  \"breweryName\": \"Excepteur laboris \",\n  \"categoryName\": \"deserunt con\",\n  \"ibu\": -77674758,\n  \"id\": 16870565,\n  \"name\": \"labore est nisi qui\"\n },\n {\n  \"abv\": -47438823.80423212,\n  \"breweryName\": \"deserunt dolor\",\n  \"categoryName\": \"occaecat quis tempor aute\",\n  \"ibu\": -93053105,\n  \"id\": 46507850,\n  \"name\": \"do dolore sit ipsum\"\n }\n]"
-						}
-					]
-				},
-				{
-					"name": "save Assembly",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "X-API-VERSION",
-								"value": "1",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"realizationDate\": \"2022-10-29T01:30:02\",\n    \"description\": \"general assembly 22/10/29\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/assembly",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"assembly"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"abv\": \"<number>\",\n \"breweryName\": \"<string>\",\n \"categoryName\": \"<string>\",\n \"ibu\": \"<integer>\",\n \"id\": \"<integer>\",\n \"name\": \"<string>\"\n}"
-						}
-					]
-				},
-				{
-					"name": "deleteAllassembly",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/assembly",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"assembly"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{}"
-						}
-					]
-				},
-				{
-					"name": "findByName",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/craft-beers/name/:name",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"craft-beers",
-								"name",
-								":name"
-							],
-							"variable": [
-								{
-									"key": "name",
-									"value": "<string>",
-									"description": "(Required) name"
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Not Found!",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers/name/:name",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers",
-										"name",
-										":name"
-									],
-									"variable": [
-										{
-											"key": "name"
-										}
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers/name/:name",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers",
-										"name",
-										":name"
-									],
-									"variable": [
-										{
-											"key": "name"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "[\n {\n  \"abv\": \"<number>\",\n  \"breweryName\": \"<string>\",\n  \"categoryName\": \"<string>\",\n  \"ibu\": \"<integer>\",\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\"\n },\n {\n  \"abv\": \"<number>\",\n  \"breweryName\": \"<string>\",\n  \"categoryName\": \"<string>\",\n  \"ibu\": \"<integer>\",\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\"\n }\n]"
-						},
-						{
-							"name": "500 message",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers/name/:name",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers",
-										"name",
-										":name"
-									],
-									"variable": [
-										{
-											"key": "name"
-										}
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "No Content",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers/name/:name",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers",
-										"name",
-										":name"
-									],
-									"variable": [
-										{
-											"key": "name"
-										}
-									]
-								}
-							},
-							"status": "No Content",
-							"code": 204,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Associated",
-			"item": [
-				{
-					"name": "{id}",
-					"item": [
-						{
-							"name": "getAssemblyById",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/assembly/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"assembly",
-										":id"
-									],
-									"variable": [
-										{
-											"description": "(Required) id",
-											"key": "id",
-											"value": "<long>"
-										}
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "No Content",
-									"originalRequest": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{baseUrl}}/craft-beers/:id",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"craft-beers",
-												":id"
-											],
-											"variable": [
-												{
-													"key": "id"
-												}
-											]
-										}
-									},
-									"status": "No Content",
-									"code": 204,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								},
-								{
-									"name": "OK",
-									"originalRequest": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{baseUrl}}/craft-beers/:id",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"craft-beers",
-												":id"
-											],
-											"variable": [
-												{
-													"key": "id"
-												}
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "{\n \"abv\": \"<number>\",\n \"breweryName\": \"<string>\",\n \"categoryName\": \"<string>\",\n \"ibu\": \"<integer>\",\n \"id\": \"<integer>\",\n \"name\": \"<string>\"\n}"
-								},
-								{
-									"name": "500 message",
-									"originalRequest": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{baseUrl}}/craft-beers/:id",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"craft-beers",
-												":id"
-											],
-											"variable": [
-												{
-													"key": "id"
-												}
-											]
-										}
-									},
-									"status": "Internal Server Error",
-									"code": 500,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								},
-								{
-									"name": "Not Found!",
-									"originalRequest": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{baseUrl}}/craft-beers/:id",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"craft-beers",
-												":id"
-											],
-											"variable": [
-												{
-													"key": "id"
-												}
-											]
-										}
-									},
-									"status": "Not Found",
-									"code": 404,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
-						},
-						{
-							"name": "updateAssembly",
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"abv\": \"<number>\",\n    \"breweryName\": \"<string>\",\n    \"categoryName\": \"<string>\",\n    \"ibu\": \"<integer>\",\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/assembly/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"assembly",
-										":id"
-									],
-									"variable": [
-										{
-											"description": "(Required) id",
-											"key": "id",
-											"value": "<long>"
-										}
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "OK",
-									"originalRequest": {
-										"method": "PUT",
-										"header": [],
-										"url": {
-											"raw": "{{baseUrl}}/craft-beers/:id",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"craft-beers",
-												":id"
-											],
-											"variable": [
-												{
-													"key": "id"
-												}
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "{\n \"abv\": \"<number>\",\n \"breweryName\": \"<string>\",\n \"categoryName\": \"<string>\",\n \"ibu\": \"<integer>\",\n \"id\": \"<integer>\",\n \"name\": \"<string>\"\n}"
-								}
-							]
-						},
-						{
-							"name": "deleteAssembly",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/assembly/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"assembly",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "<long>",
-											"description": "(Required) id"
-										}
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "OK",
-									"originalRequest": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "{{baseUrl}}/craft-beers/:id",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"craft-beers",
-												":id"
-											],
-											"variable": [
-												{
-													"key": "id"
-												}
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "{}"
-								}
-							]
-						}
-					]
-				},
-				{
-					"name": "getAll",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "X-API-VERSION",
-								"value": "",
-								"type": "text"
-							},
-							{
-								"key": "",
-								"value": "",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/assembly?X-API-VERSION=1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"assembly"
-							],
-							"query": [
-								{
-									"key": "X-API-VERSION",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "500 message",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "[\n {\n  \"abv\": -40336130.71623665,\n  \"breweryName\": \"Excepteur laboris \",\n  \"categoryName\": \"deserunt con\",\n  \"ibu\": -77674758,\n  \"id\": 16870565,\n  \"name\": \"labore est nisi qui\"\n },\n {\n  \"abv\": -47438823.80423212,\n  \"breweryName\": \"deserunt dolor\",\n  \"categoryName\": \"occaecat quis tempor aute\",\n  \"ibu\": -93053105,\n  \"id\": 46507850,\n  \"name\": \"do dolore sit ipsum\"\n }\n]"
-						},
-						{
-							"name": "Not Found!",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "No Content",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "No Content",
-							"code": 204,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						}
-					]
-				},
-				{
-					"name": "getVersion",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "X-API-VERSION",
-								"value": "2",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/assembly",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"assembly"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "No Content",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "No Content",
-							"code": 204,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "500 message",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "Not Found!",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "[\n {\n  \"abv\": -40336130.71623665,\n  \"breweryName\": \"Excepteur laboris \",\n  \"categoryName\": \"deserunt con\",\n  \"ibu\": -77674758,\n  \"id\": 16870565,\n  \"name\": \"labore est nisi qui\"\n },\n {\n  \"abv\": -47438823.80423212,\n  \"breweryName\": \"deserunt dolor\",\n  \"categoryName\": \"occaecat quis tempor aute\",\n  \"ibu\": -93053105,\n  \"id\": 46507850,\n  \"name\": \"do dolore sit ipsum\"\n }\n]"
-						}
-					]
-				},
-				{
-					"name": "save Associated",
+					"name": "create Assembly",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1426,20 +706,20 @@
 							{
 								"key": "X-API-VERSION",
 								"type": "text",
-								"value": "1"
+								"value": "{{X-API-VERSION}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Edivaldo Mascarenhas\",\n    \"cpf\": \"023.738.515-55\"\n}"
+							"raw": "{\n    \"realizationDate\": \"2022-10-29T01:30:02\",\n    \"description\": \"general assembly 22/10/29\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/associated",
+							"raw": "{{baseUrl}}/{{assemblies}}",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"associated"
+								"{{assemblies}}"
 							]
 						}
 					},
@@ -1474,17 +754,33 @@
 					]
 				},
 				{
-					"name": "deleteAllassembly",
+					"name": "create topicSession",
 					"request": {
-						"method": "DELETE",
-						"header": [],
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-API-VERSION",
+								"type": "text",
+								"value": "{{X-API-VERSION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"playground renovation NEW222\",\n    \"description\": \"voting for playground renovation\",\n    \"timeToBeOpen\": \"5\"\n}"
+						},
 						"url": {
-							"raw": "{{baseUrl}}/assembly",
+							"raw": "{{baseUrl}}/{{assemblies}}/{{assemblyId}}/{{topic-sessions}}",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"assembly"
+								"{{assemblies}}",
+								"{{assemblyId}}",
+								"{{topic-sessions}}"
 							]
 						}
 					},
@@ -1492,7 +788,7 @@
 						{
 							"name": "OK",
 							"originalRequest": {
-								"method": "DELETE",
+								"method": "POST",
 								"header": [],
 								"url": {
 									"raw": "{{baseUrl}}/craft-beers",
@@ -1514,170 +810,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{}"
-						}
-					]
-				},
-				{
-					"name": "findByName",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/craft-beers/name/:name",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"craft-beers",
-								"name",
-								":name"
-							],
-							"variable": [
-								{
-									"key": "name",
-									"value": "<string>",
-									"description": "(Required) name"
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "500 message",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers/name/:name",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers",
-										"name",
-										":name"
-									],
-									"variable": [
-										{
-											"key": "name"
-										}
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "Not Found!",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers/name/:name",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers",
-										"name",
-										":name"
-									],
-									"variable": [
-										{
-											"key": "name"
-										}
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers/name/:name",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers",
-										"name",
-										":name"
-									],
-									"variable": [
-										{
-											"key": "name"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "[\n {\n  \"abv\": \"<number>\",\n  \"breweryName\": \"<string>\",\n  \"categoryName\": \"<string>\",\n  \"ibu\": \"<integer>\",\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\"\n },\n {\n  \"abv\": \"<number>\",\n  \"breweryName\": \"<string>\",\n  \"categoryName\": \"<string>\",\n  \"ibu\": \"<integer>\",\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\"\n }\n]"
-						},
-						{
-							"name": "No Content",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers/name/:name",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers",
-										"name",
-										":name"
-									],
-									"variable": [
-										{
-											"key": "name"
-										}
-									]
-								}
-							},
-							"status": "No Content",
-							"code": 204,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
+							"body": "{\n \"abv\": \"<number>\",\n \"breweryName\": \"<string>\",\n \"categoryName\": \"<string>\",\n \"ibu\": \"<integer>\",\n \"id\": \"<integer>\",\n \"name\": \"<string>\"\n}"
 						}
 					]
 				}
@@ -1690,25 +823,24 @@
 					"name": "{id}",
 					"item": [
 						{
-							"name": "getAssemblyById",
+							"name": "getTopicSessionById",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "X-API-VERSION",
+										"value": "{{X-API-VERSION}}",
+										"type": "text"
+									}
+								],
 								"url": {
-									"raw": "{{baseUrl}}/assembly/:id",
+									"raw": "{{baseUrl}}/{{topic-sessions}}/{{topicSessionId}}",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"assembly",
-										":id"
-									],
-									"variable": [
-										{
-											"description": "(Required) id",
-											"key": "id",
-											"value": "<long>"
-										}
+										"{{topic-sessions}}",
+										"{{topicSessionId}}"
 									]
 								}
 							},
@@ -1848,42 +980,99 @@
 							]
 						},
 						{
-							"name": "updateAssembly",
+							"name": "get result",
 							"request": {
-								"method": "PUT",
+								"method": "GET",
 								"header": [
 									{
-										"key": "Content-Type",
-										"value": "application/json"
+										"key": "X-API-VERSION",
+										"type": "text",
+										"value": "{{X-API-VERSION}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"abv\": \"<number>\",\n    \"breweryName\": \"<string>\",\n    \"categoryName\": \"<string>\",\n    \"ibu\": \"<integer>\",\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n}"
-								},
 								"url": {
-									"raw": "{{baseUrl}}/assembly/:id",
+									"raw": "{{baseUrl}}/{{topic-sessions}}/{{topicSessionId}}/result",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"assembly",
-										":id"
-									],
-									"variable": [
-										{
-											"description": "(Required) id",
-											"key": "id",
-											"value": "<long>"
-										}
+										"{{topic-sessions}}",
+										"{{topicSessionId}}",
+										"result"
 									]
 								}
 							},
 							"response": [
 								{
+									"name": "No Content",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/craft-beers/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"craft-beers",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "500 message",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/craft-beers/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"craft-beers",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
 									"name": "OK",
 									"originalRequest": {
-										"method": "PUT",
+										"method": "GET",
 										"header": [],
 										"url": {
 											"raw": "{{baseUrl}}/craft-beers/:id",
@@ -1912,37 +1101,11 @@
 									],
 									"cookie": [],
 									"body": "{\n \"abv\": \"<number>\",\n \"breweryName\": \"<string>\",\n \"categoryName\": \"<string>\",\n \"ibu\": \"<integer>\",\n \"id\": \"<integer>\",\n \"name\": \"<string>\"\n}"
-								}
-							]
-						},
-						{
-							"name": "deleteAssembly",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/assembly/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"assembly",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "<long>",
-											"description": "(Required) id"
-										}
-									]
-								}
-							},
-							"response": [
+								},
 								{
-									"name": "OK",
+									"name": "Not Found!",
 									"originalRequest": {
-										"method": "DELETE",
+										"method": "GET",
 										"header": [],
 										"url": {
 											"raw": "{{baseUrl}}/craft-beers/:id",
@@ -1960,6 +1123,66 @@
 											]
 										}
 									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "open topicSession",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "json-patch+json"
+									},
+									{
+										"key": "X-API-VERSION",
+										"type": "text",
+										"value": "{{X-API-VERSION}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"status\":\"OPENED\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{topic-sessions}}/{{topicSessionId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{topic-sessions}}",
+										"{{topicSessionId}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/craft-beers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"craft-beers"
+											]
+										}
+									},
 									"status": "OK",
 									"code": 200,
 									"_postman_previewlanguage": "json",
@@ -1970,7 +1193,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{}"
+									"body": "{\n \"abv\": \"<number>\",\n \"breweryName\": \"<string>\",\n \"categoryName\": \"<string>\",\n \"ibu\": \"<integer>\",\n \"id\": \"<integer>\",\n \"name\": \"<string>\"\n}"
 								}
 							]
 						}
@@ -1980,290 +1203,69 @@
 					"name": "getAll",
 					"request": {
 						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/assembly",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"assembly"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "500 message",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "[\n {\n  \"abv\": -40336130.71623665,\n  \"breweryName\": \"Excepteur laboris \",\n  \"categoryName\": \"deserunt con\",\n  \"ibu\": -77674758,\n  \"id\": 16870565,\n  \"name\": \"labore est nisi qui\"\n },\n {\n  \"abv\": -47438823.80423212,\n  \"breweryName\": \"deserunt dolor\",\n  \"categoryName\": \"occaecat quis tempor aute\",\n  \"ibu\": -93053105,\n  \"id\": 46507850,\n  \"name\": \"do dolore sit ipsum\"\n }\n]"
-						},
-						{
-							"name": "Not Found!",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "No Content",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "No Content",
-							"code": 204,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						}
-					]
-				},
-				{
-					"name": "getVersion",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/craft-beers",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"craft-beers"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Not Found!",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "No Content",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "No Content",
-							"code": 204,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "[\n {\n  \"abv\": -40336130.71623665,\n  \"breweryName\": \"Excepteur laboris \",\n  \"categoryName\": \"deserunt con\",\n  \"ibu\": -77674758,\n  \"id\": 16870565,\n  \"name\": \"labore est nisi qui\"\n },\n {\n  \"abv\": -47438823.80423212,\n  \"breweryName\": \"deserunt dolor\",\n  \"categoryName\": \"occaecat quis tempor aute\",\n  \"ibu\": -93053105,\n  \"id\": 46507850,\n  \"name\": \"do dolore sit ipsum\"\n }\n]"
-						},
-						{
-							"name": "500 message",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						}
-					]
-				},
-				{
-					"name": "save topicSession",
-					"request": {
-						"method": "POST",
 						"header": [
 							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
 								"key": "X-API-VERSION",
-								"value": "1",
+								"value": "{{X-API-VERSION}}",
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"playground renovation NEW222\",\n    \"description\": \"voting for playground renovation\",\n    \"timeToBeOpen\": \"5\",\n    \"assembly_id\": \"a8938b10-1e38-41c6-b4f4-8ad926b823aa\"\n}"
-						},
 						"url": {
-							"raw": "{{baseUrl}}/assembly/895352a0-b7d5-41e4-8f95-2029b91f0a32/topic-session",
+							"raw": "{{baseUrl}}/{{topic-sessions}}?_limit=20&_offset=0&_sort=ASC",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"assembly",
-								"895352a0-b7d5-41e4-8f95-2029b91f0a32",
-								"topic-session"
+								"{{topic-sessions}}"
+							],
+							"query": [
+								{
+									"key": "_limit",
+									"value": "20"
+								},
+								{
+									"key": "_offset",
+									"value": "0"
+								},
+								{
+									"key": "_sort",
+									"value": "ASC"
+								}
 							]
 						}
 					},
 					"response": [
 						{
+							"name": "500 message",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/craft-beers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"craft-beers"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
 							"name": "OK",
 							"originalRequest": {
-								"method": "POST",
+								"method": "GET",
 								"header": [],
 								"url": {
 									"raw": "{{baseUrl}}/craft-beers",
@@ -2285,7 +1287,61 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n \"abv\": \"<number>\",\n \"breweryName\": \"<string>\",\n \"categoryName\": \"<string>\",\n \"ibu\": \"<integer>\",\n \"id\": \"<integer>\",\n \"name\": \"<string>\"\n}"
+							"body": "[\n {\n  \"abv\": -40336130.71623665,\n  \"breweryName\": \"Excepteur laboris \",\n  \"categoryName\": \"deserunt con\",\n  \"ibu\": -77674758,\n  \"id\": 16870565,\n  \"name\": \"labore est nisi qui\"\n },\n {\n  \"abv\": -47438823.80423212,\n  \"breweryName\": \"deserunt dolor\",\n  \"categoryName\": \"occaecat quis tempor aute\",\n  \"ibu\": -93053105,\n  \"id\": 46507850,\n  \"name\": \"do dolore sit ipsum\"\n }\n]"
+						},
+						{
+							"name": "Not Found!",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/craft-beers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"craft-beers"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "No Content",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/craft-beers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"craft-beers"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
 						}
 					]
 				},
@@ -2301,7 +1357,7 @@
 							{
 								"key": "X-API-VERSION",
 								"type": "text",
-								"value": "1"
+								"value": "{{X-API-VERSION}}"
 							}
 						],
 						"body": {
@@ -2309,14 +1365,14 @@
 							"raw": "{\n    \"value\": \"YES\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/topic-session/{{topicSessionId}}/associated/{{associatedId}}/vote",
+							"raw": "{{baseUrl}}/{{topic-sessions}}/{{topicSessionId}}/{{associates}}/{{associatedId}}/vote",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"topic-session",
+								"{{topic-sessions}}",
 								"{{topicSessionId}}",
-								"associated",
+								"{{associates}}",
 								"{{associatedId}}",
 								"vote"
 							]
@@ -2351,224 +1407,222 @@
 							"body": "{\n \"abv\": \"<number>\",\n \"breweryName\": \"<string>\",\n \"categoryName\": \"<string>\",\n \"ibu\": \"<integer>\",\n \"id\": \"<integer>\",\n \"name\": \"<string>\"\n}"
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Vote",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "getVoteById",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-VERSION",
+										"value": "{{X-API-VERSION}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/{{votes}}/{{voteId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{votes}}",
+										"{{voteId}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/craft-beers/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"craft-beers",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"abv\": \"<number>\",\n \"breweryName\": \"<string>\",\n \"categoryName\": \"<string>\",\n \"ibu\": \"<integer>\",\n \"id\": \"<integer>\",\n \"name\": \"<string>\"\n}"
+								},
+								{
+									"name": "Not Found!",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/craft-beers/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"craft-beers",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "No Content",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/craft-beers/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"craft-beers",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "500 message",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/craft-beers/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"craft-beers",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
 				},
 				{
-					"name": "open topicSession",
+					"name": "getAll",
 					"request": {
-						"method": "PATCH",
+						"method": "GET",
 						"header": [
 							{
-								"key": "Content-Type",
-								"value": "json-patch+json"
-							},
-							{
 								"key": "X-API-VERSION",
-								"value": "1",
+								"value": "{{X-API-VERSION}}",
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n   \"status\":\"OPENED\"\n}"
-						},
 						"url": {
-							"raw": "{{baseUrl}}/topic-session/{{topicSessionId}}",
+							"raw": "{{baseUrl}}/{{votes}}?_limit=20&_offset=0&_sort=ASC",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"topic-session",
-								"{{topicSessionId}}"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
+								"{{votes}}"
+							],
+							"query": [
 								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"abv\": \"<number>\",\n \"breweryName\": \"<string>\",\n \"categoryName\": \"<string>\",\n \"ibu\": \"<integer>\",\n \"id\": \"<integer>\",\n \"name\": \"<string>\"\n}"
-						}
-					]
-				},
-				{
-					"name": "deleteAllassembly",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/assembly",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"assembly"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
+									"key": "_limit",
+									"value": "20"
+								},
 								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{}"
-						}
-					]
-				},
-				{
-					"name": "findByName",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/craft-beers/name/:name",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"craft-beers",
-								"name",
-								":name"
-							],
-							"variable": [
+									"key": "_offset",
+									"value": "0"
+								},
 								{
-									"key": "name",
-									"value": "<string>",
-									"description": "(Required) name"
+									"key": "_sort",
+									"value": "ASC"
 								}
 							]
 						}
 					},
 					"response": [
-						{
-							"name": "500 message",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers/name/:name",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers",
-										"name",
-										":name"
-									],
-									"variable": [
-										{
-											"key": "name"
-										}
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/craft-beers/name/:name",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"craft-beers",
-										"name",
-										":name"
-									],
-									"variable": [
-										{
-											"key": "name"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "[\n {\n  \"abv\": \"<number>\",\n  \"breweryName\": \"<string>\",\n  \"categoryName\": \"<string>\",\n  \"ibu\": \"<integer>\",\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\"\n },\n {\n  \"abv\": \"<number>\",\n  \"breweryName\": \"<string>\",\n  \"categoryName\": \"<string>\",\n  \"ibu\": \"<integer>\",\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\"\n }\n]"
-						},
 						{
 							"name": "No Content",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/craft-beers/name/:name",
+									"raw": "{{baseUrl}}/craft-beers",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"craft-beers",
-										"name",
-										":name"
-									],
-									"variable": [
-										{
-											"key": "name"
-										}
+										"craft-beers"
 									]
 								}
 							},
@@ -2585,24 +1639,71 @@
 							"body": ""
 						},
 						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/craft-beers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"craft-beers"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"abv\": -40336130.71623665,\n  \"breweryName\": \"Excepteur laboris \",\n  \"categoryName\": \"deserunt con\",\n  \"ibu\": -77674758,\n  \"id\": 16870565,\n  \"name\": \"labore est nisi qui\"\n },\n {\n  \"abv\": -47438823.80423212,\n  \"breweryName\": \"deserunt dolor\",\n  \"categoryName\": \"occaecat quis tempor aute\",\n  \"ibu\": -93053105,\n  \"id\": 46507850,\n  \"name\": \"do dolore sit ipsum\"\n }\n]"
+						},
+						{
+							"name": "500 message",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/craft-beers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"craft-beers"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
 							"name": "Not Found!",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/craft-beers/name/:name",
+									"raw": "{{baseUrl}}/craft-beers",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"craft-beers",
-										"name",
-										":name"
-									],
-									"variable": [
-										{
-											"key": "name"
-										}
+										"craft-beers"
 									]
 								}
 							},

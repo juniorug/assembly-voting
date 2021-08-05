@@ -19,6 +19,8 @@ public class Messages {
   public static final String INVALID_REQUEST_PARAM_FIELD = "412.010";
   public static final String INVALID_FORMAT_ERROR = "412.011";
   public static final String FIELD_MUST_NOT_BE_EMPTY_ERROR = "412.012";
+  public static final String SIZE_137_INVALID_LENGTH_ERROR = "412.013";
+  public static final String SIZE_11_INVALID_LENGTH_ERROR = "412.014";
 
   public static final String ENTITY_ALREADY_EXISTS = "422.001";
   public static final String ENTITY_DOES_NOT_EXISTS = "422.002";

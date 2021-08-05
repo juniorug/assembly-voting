@@ -1,6 +1,7 @@
 package com.juniormascarenhas.assemblyvoting.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,17 +11,13 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.juniormascarenhas.assemblyvoting.response.AssociatedResponse;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@Getter
-@Setter
-@ToString
 @Data
 @Builder
 @NoArgsConstructor
@@ -40,7 +37,23 @@ public class Associated implements Serializable {
   @Column(name = "NAME", length = 137)
   private String name;
 
-  @Column(name = "CPF", length = 14)
+  @Column(name = "CPF", length = 11)
   private String cpf;
+
+  @Column(name = "CREATED_AT")
+  private LocalDateTime createdAt;
+
+  @Column(name = "UPDATED_AT")
+  private LocalDateTime updatedAt;
+  
+  public AssociatedResponse toResponse() {
+    return AssociatedResponse.builder()
+        .id(id)
+        .name(name)
+        .cpf(cpf)
+        .createdAt(createdAt)
+        .updatedAt(updatedAt)
+        .build();
+  }
 
 }

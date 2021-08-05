@@ -12,7 +12,7 @@ import com.juniormascarenhas.assemblyvoting.entity.Associated;
 import com.juniormascarenhas.assemblyvoting.service.AssociatedService;
 
 @RestController
-@RequestMapping(path = "/associated", produces = "application/json")
+@RequestMapping(path = "/associates", produces = "application/json")
 public class AssociatedController {
 
   @Autowired

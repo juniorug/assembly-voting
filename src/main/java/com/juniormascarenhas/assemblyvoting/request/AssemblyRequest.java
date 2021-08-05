@@ -29,12 +29,21 @@ public class AssemblyRequest {
   private LocalDateTime realizationDate;
 
   public Assembly toEntity() {
-    return Assembly.builder().createdAt(LocalDateTime.now()).description(description).realizationDate(realizationDate)
+    return Assembly.builder()
+        .createdAt(LocalDateTime.now())
+        .description(description)
+        .realizationDate(realizationDate)
         .build();
   }
 
   public Assembly toEntity(Assembly assembly) {
-    return Assembly.builder().id(assembly.getId()).createdAt(assembly.getCreatedAt()).updatedAt(LocalDateTime.now())
-        .description(description).realizationDate(realizationDate).topicSessions(assembly.getTopicSessions()).build();
+    return Assembly.builder()
+        .id(assembly.getId())
+        .createdAt(assembly.getCreatedAt())
+        .updatedAt(LocalDateTime.now())
+        .description(description)
+        .realizationDate(realizationDate)
+        .topicSessions(assembly.getTopicSessions())
+        .build();
   }
 }

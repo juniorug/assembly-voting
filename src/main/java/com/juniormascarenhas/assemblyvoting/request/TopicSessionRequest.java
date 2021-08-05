@@ -34,14 +34,26 @@ public class TopicSessionRequest {
   private List<Vote> votes;
 
   public TopicSession toEntity(Assembly assembly) {
-    return TopicSession.builder().createdAt(LocalDateTime.now()).name(name).description(description).assembly(assembly)
-        .timeToBeOpen(timeToBeOpen).build();
+    return TopicSession.builder()
+        .createdAt(LocalDateTime.now())
+        .name(name)
+        .description(description)
+        .assembly(assembly)
+        .timeToBeOpen(timeToBeOpen)
+        .build();
   }
 
   public TopicSession toEntity(TopicSession topicSession, Assembly assembly) {
-    return TopicSession.builder().id(topicSession.getId()).createdAt(topicSession.getCreatedAt())
-        .updatedAt(LocalDateTime.now()).name(name).description(description).assembly(assembly)
-        .timeToBeOpen(timeToBeOpen).votes(topicSession.getVotes()).build();
+    return TopicSession.builder()
+        .id(topicSession.getId())
+        .createdAt(topicSession.getCreatedAt())
+        .updatedAt(LocalDateTime.now())
+        .name(name)
+        .description(description)
+        .assembly(assembly)
+        .timeToBeOpen(timeToBeOpen)
+        .votes(topicSession.getVotes())
+        .build();
   }
 
 }

@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.juniormascarenhas.assemblyvoting.enumeration.SessionStatus;
 import com.juniormascarenhas.assemblyvoting.enumeration.TopicResult;
 import com.juniormascarenhas.assemblyvoting.response.TopicSessionResponse;
 
@@ -56,23 +57,13 @@ public class TopicSession implements Serializable {
   private long timeToBeOpen;
 
   @Column(name = "TIME_OPENNED")
-  private LocalDateTime timeOpenned;
+  private LocalDateTime dateTimeOpenned;
 
   @Column(name = "STATUS")
-  private String status;
-
-  @JsonIgnore
-  @Builder.Default
-  @OneToMany(orphanRemoval = true, mappedBy = "topicSession")
-  private List<Vote> votes = List.of();
+  private SessionStatus status;
 
   @Column(name = "RESULT")
   private TopicResult result;
-
-  @JsonIgnore
-  @ManyToOne
-  @JoinColumn(name = "ASSEMBLY_ID")
-  private Assembly assembly;
 
   @Column(name = "CREATED_AT")
   private LocalDateTime createdAt;
@@ -80,10 +71,29 @@ public class TopicSession implements Serializable {
   @Column(name = "UPDATED_AT")
   private LocalDateTime updatedAt;
 
+  @JsonIgnore
+  @Builder.Default
+  @OneToMany(orphanRemoval = true, mappedBy = "topicSession")
+  private List<Vote> votes = List.of();
+
+  @JsonIgnore
+  @ManyToOne
+  @JoinColumn(name = "ASSEMBLY_ID")
+  private Assembly assembly;
+
   public TopicSessionResponse toResponse() {
-    return TopicSessionResponse.builder().id(id).description(description).timeToBeOpen(timeToBeOpen)
-        .timeOpenned(timeOpenned).status(status).createdAt(createdAt).updatedAt(updatedAt).assemblyId(assembly.getId())
-        .topicResultId(result.name()).votes(votes).build();
+    return TopicSessionResponse.builder()
+        .id(id)
+        .description(description)
+        .timeToBeOpen(timeToBeOpen)
+        .dateTimeOpenned(dateTimeOpenned)
+        .status(status)
+        .createdAt(createdAt)
+        .updatedAt(updatedAt)
+        .assemblyId(assembly.getId())
+        .topicResult(result)
+        .votes(votes)
+        .build();
   }
 
 }

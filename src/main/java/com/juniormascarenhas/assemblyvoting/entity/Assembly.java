@@ -20,14 +20,8 @@ import com.juniormascarenhas.assemblyvoting.response.AssemblyResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@Getter
-@Setter
-@ToString
 @Data
 @Builder
 @NoArgsConstructor
@@ -63,8 +57,14 @@ public class Assembly implements Serializable {
   private List<TopicSession> topicSessions = List.of();
 
   public AssemblyResponse toResponse() {
-    return AssemblyResponse.builder().id(id).description(description).realizationDate(realizationDate)
-        .createdAt(createdAt).updatedAt(updatedAt).topicSessions(topicSessions).build();
+    return AssemblyResponse.builder()
+        .id(id)
+        .description(description)
+        .realizationDate(realizationDate)
+        .createdAt(createdAt)
+        .updatedAt(updatedAt)
+        .topicSessions(topicSessions)
+        .build();
   }
 
 }

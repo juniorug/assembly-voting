@@ -17,7 +17,7 @@ import com.juniormascarenhas.assemblyvoting.entity.Vote;
 import com.juniormascarenhas.assemblyvoting.service.TopicSessionService;
 
 @RestController
-@RequestMapping(path = "/topic-session", produces = "application/json")
+@RequestMapping(path = "/topic-sessions", produces = "application/json")
 public class TopicSessionController {
 
   @Autowired
@@ -37,7 +37,7 @@ public class TopicSessionController {
     return ResponseEntity.ok(topicSession);
   }
 
-  @PostMapping("{topicSessionId}/associated/{associatedId}/vote")
+  @PostMapping("{topicSessionId}/associates/{associatedId}/vote")
   public ResponseEntity<Vote> vote(@PathVariable(value = "topicSessionId") String topicSessionId,
       @PathVariable(value = "associatedId") String associatedId, @Valid @RequestBody Vote vote) {
     String voteId = topicSessionService.vote(topicSessionId, associatedId, vote);

@@ -53,80 +53,698 @@ parameters:
       - ASC
       - DESC
     default: ASC
+  X-API-VERSION:
+      name: x-api-version
+      in: header
+      description: Indicates the API version to be used.
+      required: true
+      type: string
+      minLength: 1
+      default: 1
 paths:
-  /Assemblies:
+  /associates:
+    post:
+      tags:
+        - Associates
+      summary: Creates a new Associated.
+      operationId: postAssociates
+      produces:
+        - application/json
+      parameters:
+        - name: Associated
+          in: body
+          schema:
+            $ref: "#/definitions/AssociatedRequest"
+          description: Associated to be created.
+          required: true
+      responses:
+        201:
+          description: Created.
+          headers:
+            location:
+              type: string
+              description: Resource to recover an associated
+        412:
+          $ref: '#/responses/PreconditionFailed'
+        422:
+          $ref: '#/responses/UnprocessableEntity'
+        500:
+          $ref: '#/responses/InternalServerError'
+    get:
+      tags:
+        - Associates
+      summary: Retrieves Associates.
+      parameters: 
+        - $ref: "#/parameters/X-API-VERSION"
+        - $ref: "#/parameters/limit"
+        - $ref: "#/parameters/offset"
+        - $ref: "#/parameters/sort"
+        - in: query
+          type: string
+          name: keywords
+          description: Keywords search parameter.
+      responses:
+        200:
+          description: OK.
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Associated"
+          headers:
+            content-range:
+              type: integer
+              format: int32
+              description: Total existing records.
+            accept-range:
+              type: integer
+              format: int32
+              description: Max records per requests.
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+  "/associates/{associatedId}":
+    parameters: 
+    - $ref: "#/parameters/X-API-VERSION"
+    - in: path
+      name: associatedId
+      type: string
+      required: true
+      description: Associated Identifier
+    get:
+      tags:
+        - Associates
+      summary: Retrieves an existing Associated.
+      operationId: getAssociatedId
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK.
+          schema:
+            $ref: "#/definitions/Associated"
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+  /assemblies:
+    post:
+      tags:
+        - Assemblies
+      summary: Creates a new Assembly.
+      operationId: postAssemblies
+      produces:
+        - application/json
+      parameters:
+        - name: Assembly
+          in: body
+          schema:
+            $ref: "#/definitions/AssemblyRequest"
+          description: Assembly to be created.
+          required: true
+      responses:
+        201:
+          description: Created.
+          headers:
+            location:
+              type: string
+              description: Resource to recover an assembly
+        412:
+          $ref: '#/responses/PreconditionFailed'
+        422:
+          $ref: '#/responses/UnprocessableEntity'
+        500:
+          $ref: '#/responses/InternalServerError'
     get:
       tags:
         - Assemblies
-      parameters: []
+      summary: Retrieves assemblies.
+      parameters: 
+        - $ref: "#/parameters/X-API-VERSION"
+        - $ref: "#/parameters/limit"
+        - $ref: "#/parameters/offset"
+        - $ref: "#/parameters/sort"
+        - in: query
+          type: string
+          name: keywords
+          description: Keywords search parameter.
       responses:
         200:
-          description: "Status 200"
+          description: OK.
           schema:
             type: "array"
             items:
               $ref: "#/definitions/Assembly"
+          headers:
+            content-range:
+              type: integer
+              format: int32
+              description: Total existing records.
+            accept-range:
+              type: integer
+              format: int32
+              description: Max records per requests.
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+  "/assemblies/{assemblyId}":
+    parameters: 
+    - $ref: "#/parameters/X-API-VERSION"
+    - in: path
+      name: assemblyId
+      type: string
+      required: true
+      description: Assembly Identifier
+    get:
+      tags:
+        - Assemblies
+      summary: Retrieves an existing Assembly.
+      operationId: getAssemblyId
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK.
+          schema:
+            $ref: "#/definitions/Assembly"
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+  "/assemblies/{assemblyId}/topic-sessions":
+    parameters: 
+    - $ref: "#/parameters/X-API-VERSION"
+    - in: path
+      name: assemblyId
+      type: string
+      required: true
+      description: Assembly Identifier
+    post:
+      tags:
+        - Assemblies
+      summary: Creates a new Topic Session.
+      operationId: postTopicSessions
+      produces:
+        - application/json
+      parameters:
+        - name: TopicSession
+          in: body
+          schema:
+            $ref: "#/definitions/TopicSessionRequest"
+          description: Topic Session to be created.
+          required: true
+      responses:
+        201:
+          description: Created.
+          headers:
+            location:
+              type: string
+              description: Resource to recover an assembly
+        412:
+          $ref: '#/responses/PreconditionFailed'
+        422:
+          $ref: '#/responses/UnprocessableEntity'
+        500:
+          $ref: '#/responses/InternalServerError'
+  "/topic-sessions":
+    get:
+      tags:
+        - Topic Sessions
+      summary: Retrieves topic sessions.
+      parameters: 
+        - $ref: "#/parameters/X-API-VERSION"
+        - $ref: "#/parameters/limit"
+        - $ref: "#/parameters/offset"
+        - $ref: "#/parameters/sort"
+        - in: query
+          type: string
+          name: keywords
+          description: Keywords search parameter.
+      responses:
+        200:
+          description: OK.
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/TopicSession"
+          headers:
+            content-range:
+              type: integer
+              format: int32
+              description: Total existing records.
+            accept-range:
+              type: integer
+              format: int32
+              description: Max records per requests.
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+  "/topic-sessions/{topicSessionId}":
+    parameters: 
+    - $ref: "#/parameters/X-API-VERSION"
+    - in: path
+      name: topicSessionId
+      type: string
+      required: true
+      description: Topic Session Identifier
+    get:
+      tags:
+        - Topic Sessions
+      summary: Retrieves an existing Topic Session.
+      operationId: getTopicSessionId
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK.
+          schema:
+              $ref: "#/definitions/TopicSession"
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+  "/topic-sessions/{topicSessionId}/result":
+    parameters: 
+    - $ref: "#/parameters/X-API-VERSION"
+    - in: path
+      name: topicSessionId
+      type: string
+      required: true
+      description: Topic Session Identifier          
+    get:
+      tags:
+        - Topic Sessions
+      summary: Retrieves the results of a Topic Session.
+      operationId: getTopicSessionResult
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK.
+          schema:
+              $ref: "#/definitions/EnumTopicResult"
+        404:
+          $ref: '#/responses/NotFound'
+        412:
+           $ref: '#/responses/PreconditionFailed'
+        500:
+          $ref: '#/responses/InternalServerError'
+    patch:
+      tags:
+        - Topic Sessions
+      summary: Opens an existing Topic Session.
+      description: Updates status to OPENED only.
+      operationId: pacthTopicSessionId
+      produces:
+        - application/json
+      parameters:
+        - name: TopicSession
+          in: body
+          schema:
+            $ref: "#/definitions/TopicSessionPatchRequest"
+          description: Topic Session to be opened.
+      responses:
+        204:
+          description: No Content
+        404:
+          $ref: '#/responses/NotFound'
+        412:
+           $ref: '#/responses/PreconditionFailed'
+        422:
+          $ref: '#/responses/UnprocessableEntity'
+        500:
+          $ref: '#/responses/InternalServerError'
+  "/topic-sessions/{topicSessionId}/associates/{associatedId}/votes":
+    parameters: 
+    - $ref: "#/parameters/X-API-VERSION"
+    - in: path
+      name: topicSessionId
+      type: string
+      required: true
+      description: Topic Session Identifier
+    - in: path
+      name: associatedId
+      type: string
+      required: true
+      description: Associated Identifier
+    post:
+      tags:
+        - Topic Sessions
+      summary: Creates a new Vote.
+      operationId: postVotes
+      produces:
+        - application/json
+      parameters:
+        - name: Vote
+          in: body
+          schema:
+            $ref: "#/definitions/VoteRequest"
+          description: Vote posted by an associated to a topic session.
+          required: true
+      responses:
+        201:
+          description: Created.
+          headers:
+            location:
+              type: string
+              description: Resource to recover a vote
+        412:
+          $ref: '#/responses/PreconditionFailed'
+        422:
+          $ref: '#/responses/UnprocessableEntity'
+        500:
+          $ref: '#/responses/InternalServerError'
+  /votes:
+    get:
+      tags:
+        - Votes
+      summary: Retrieves Votes.
+      parameters: 
+        - $ref: "#/parameters/X-API-VERSION"
+        - $ref: "#/parameters/limit"
+        - $ref: "#/parameters/offset"
+        - $ref: "#/parameters/sort"
+        - in: query
+          type: string
+          name: keywords
+          description: Keywords search parameter.
+      responses:
+        200:
+          description: OK.
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Vote"
+          headers:
+            content-range:
+              type: integer
+              format: int32
+              description: Total existing records.
+            accept-range:
+              type: integer
+              format: int32
+              description: Max records per requests.
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+  "/votes/{voteId}":
+    parameters: 
+    - $ref: "#/parameters/X-API-VERSION"
+    - in: path
+      name: voteId
+      type: string
+      required: true
+      description: Vote Identifier
+    get:
+      tags:
+        - Votes
+      summary: Retrieves an existing Vote.
+      operationId: getVoteId
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK.
+          schema:
+            $ref: "#/definitions/Vote"
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
 definitions:
+  createdAt:
+    description: Date and Time that the item was created.
+    type: string
+    maxLength: 20
+    format: date-time
+    example: '2021-05-21T08:30:00Z'
+  updatedAt:
+    description: Last Date and Time that the item was updated.
+    type: string
+    maxLength: 20
+    format: date-time
+    example: '2021-05-22T09:25:00Z'
   Assembly:
     type: "object"
     properties:
       id:
         type: "string"
+        example: "8f9fa919-c4e6-4ca9-9a2a-18643d4c9f2a"
       description:
         type: "string"
+        example: "general assembly 22/10/29"
       realizationDate:
-        type: "string"
+        description: Date and Time that the assembly will be performed.
+        type: string
+        maxLength: 20
+        format: date-time
+        example: "2021-05-21T08:30:00Z"
       createdAt:
-        type: "string"
+        $ref: "#/definitions/createdAt"
       updatedAt:
-        type: "string"
+        $ref: "#/definitions/updatedAt"
       topicSessions:
         type: array
         items:
           $ref: "#/definitions/TopicSession"
+  AssemblyRequest:
+    type: "object"
+    properties:
+      description:
+        type: "string"
+        example: "general assembly 22/10/29"
+      realizationDate:
+        description: Date and Time that the assembly will be performed.
+        type: string
+        maxLength: 20
+        format: date-time
+        example: "2021-05-21T08:30:00Z"
   Associated:
     type: "object"
     properties:
       id:
         type: "string"
+        example: "0f59439d-32ba-4b15-97ab-fce940c189d9"
       name:
         type: "string"
+        example: "Edivaldo Mascarenhas Junior"
       cpf:
+        type: string
+        maxLength: 14
+        description: User's official identification document number.
+        example: "11111111111"
+        pattern: '^\d{11}$'
+      createdAt:
+        $ref: "#/definitions/createdAt"
+      updatedAt:
+        $ref: "#/definitions/updatedAt"
+  AssociatedRequest:
+    type: "object"
+    properties:
+      name:
         type: "string"
+        example: "Edivaldo Mascarenhas Junior"
+      cpf:
+        type: string
+        maxLength: 14
+        description: User's official identification document number.
+        example: "11111111111"
+        pattern: '^\d{11}$'
   TopicSession:
     type: "object"
     properties:
       id:
         type: "string"
+        example: "fae1c9e8-3e22-47a6-b756-f90167d9bc42"
       name:
         type: "string"
+        example: "Playground renovation"
       description:
         type: "string"
+        example: "Voting for playground renovation"
       timeToBeOpen:
         type: "string"
-      timeOpenned:
+        example: "5"
+        description: Time in minutes that the session will remain open.
+      dateTimeOpenned:
         type: "string"
+        description: Date and Time when the session was opened.
+        example: '2021-05-21T08:30:00Z'
       status:
-        type: "string"
+        $ref: "#/definitions/EnumTopicSessionStatus"
       votes:
         type: array
         items:
           $ref: "#/definitions/Vote"
       result:
-        type: "string"
-      assembly:
-        $ref: "#/definitions/Assembly"
+        $ref: "#/definitions/EnumTopicResult"
+      assemblyId:
+        example: "8f9fa919-c4e6-4ca9-9a2a-18643d4c9f2a"
+        allOf:
+          - $ref: "#/definitions/Assembly"
       createdAt:
-        type: "string"
+        $ref: "#/definitions/createdAt"
       updatedAt:
+        $ref: "#/definitions/updatedAt"
+  TopicSessionRequest:
+    type: "object"
+    properties:
+      name:
         type: "string"
+        example: "Playground renovation"
+      description:
+        type: "string"
+        example: "Voting for playground renovation"
+      timeToBeOpen:
+        type: "string"
+        example: "5"
+        description: Time in minutes that the session will remain open.
+  TopicSessionPatchRequest:
+    type: "object"
+    properties:
+      status:
+        type: string
+        enum:
+          - OPENED
   Vote:
     type: "object"
     properties:
       id:
         type: "string"
+        example: "c0e109b8-737b-4648-9e87-ed29d2c53115"
       associated:
         $ref: "#/definitions/Associated"
-      topicSession:
-        $ref: "#/definitions/TopicSession"
-  
+      topicSessionId:
+        example: "fae1c9e8-3e22-47a6-b756-f90167d9bc42"
+        allOf:
+          - $ref: "#/definitions/TopicSession"
+      value:
+        $ref: "#/definitions/EnumVoteValue"
+      createdAt:
+        $ref: "#/definitions/createdAt"
+      updatedAt:
+        $ref: "#/definitions/updatedAt"
+  VoteRequest:
+    type: "object"
+    properties:
+      associatedId:
+        example: "0f59439d-32ba-4b15-97ab-fce940c189d9"
+        allOf:
+          - $ref: "#/definitions/Associated"
+      topicSessionId:
+        example: "fae1c9e8-3e22-47a6-b756-f90167d9bc42"
+        allOf:
+          - $ref: "#/definitions/TopicSession"
+      value:
+        $ref: "#/definitions/EnumVoteValue"
+  EnumTopicResult:
+    type: string
+    maxLength: 8
+    enum:
+      - APPROVED
+      - REJECTED
+    example: APPROVED
+    description: specify the topic result. 
+  EnumTopicSessionStatus:
+    type: string
+    maxLength: 8
+    enum:
+      - APPROVED
+      - OPENED
+      - CLOSED
+      - DELETED
+    example: CLOSED
+    description: Session status.
+  EnumVoteValue:
+    type: string
+    maxLength: 3
+    enum:
+      - YES
+      - NO
+    example: YES
+    description: specify the vote value.
+  ResponseError:
+    type: object
+    required:
+      - errors
+    properties:
+      errors:
+        type: array
+        minItems: 1
+        maxItems: 13
+        items:
+          type: object
+          required:
+            - code
+            - title
+            - detail
+          properties:
+            code:
+              description: Endpoint-specific error code.
+              type: string
+              pattern: '[\w\W\s]*'
+              maxLength: 255
+            title:
+              description: Human-readable title of this specific error.
+              type: string
+              pattern: '[\w\W\s]*'
+              maxLength: 255
+            detail:
+              description: Human-readable description of this specific error.
+              type: string
+              pattern: '[\w\W\s]*'
+              maxLength: 2048
+          additionalProperties: false
+    additionalProperties: false
+responses:
+  BadRequest:
+    description: The request was malformed, omitting mandatory attributes, either in the payload or through attributes in the URL.
+    schema:
+      $ref: '#/definitions/ResponseError'
+  Forbidden:
+    description: Token has incorrect scope or a security policy has been violated.
+    schema:
+      $ref: '#/definitions/ResponseError'
+  InternalServerError:
+    description: An error occurred in the API gateway or in the microservice.
+    schema:
+      $ref: '#/definitions/ResponseError'
+  MethodNotAllowed:
+    description: The consumer tried to access the resource with an unsupported method.
+    schema:
+      $ref: '#/definitions/ResponseError'
+  NotAcceptable:
+    description: The request contained an Accept header other than the allowed media types or a character set other than UTF-8.
+    schema:
+      $ref: '#/definitions/ResponseError'
+  NotFound:
+    description: Requested feature does not exist or has not been implemented.
+    schema:
+      $ref: '#/definitions/ResponseError'
+  PreconditionFailed:
+    description: Access to the target resource has been denied.
+    schema:
+      $ref: '#/definitions/ResponseError'
+  TooManyRequests:
+    description: Operation refused because too many requests were made within a certain period or the global limit of concurrent requests was reached.
+    schema:
+      $ref: '#/definitions/ResponseError'
+    headers:
+      Retry-After:
+        description: Header that indicates the time (in seconds) that the client should wait to make a new call attempt. This header must be present when the HTTP return code is 429 Too many requests.
+        type: integer
+  Unauthorized:
+      description: Missing/Invalid Authentication Header or Invalid Token.
+      schema:
+        $ref: '#/definitions/ResponseError'
+  UnprocessableEntity:
+      description: The request was well formed but could not be processed due to the specific business logic of the request.
+      schema:
+        $ref: '#/definitions/ResponseError'
+  UnsupportedMediaType:
+      description: Payload format is not supported. 
+      schema:
+        $ref: '#/definitions/ResponseError'

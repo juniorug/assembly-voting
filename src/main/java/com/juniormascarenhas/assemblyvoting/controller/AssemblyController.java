@@ -61,7 +61,7 @@ public class AssemblyController {
         .build();
   }
 
-  @PostMapping(path = "{assemblyId}/topic-session", consumes = MediaType.APPLICATION_JSON_VALUE, headers = X_API_VERSION_1)
+  @PostMapping(path = "{assemblyId}/topic-sessions", consumes = MediaType.APPLICATION_JSON_VALUE, headers = X_API_VERSION_1)
   public ResponseEntity<TopicSession> createTopicSession(@PathVariable(value = "assemblyId") String assemblyId,
       @RequestBody @Valid TopicSessionRequest topicSession) {
     String topicSessionId = assemblyService.createTopicSession(assemblyId, topicSession);

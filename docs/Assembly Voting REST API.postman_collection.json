@@ -324,6 +324,19 @@
 				},
 				{
 					"name": "create Associated",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let associatedId = responseHeaders.Location.split('/').pop();",
+									"console.log(\"associatedId: \", associatedId);",
+									"postman.setEnvironmentVariable(\"associatedId\", associatedId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -339,7 +352,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Edivaldo Mascarenhas\",\n    \"cpf\": \"023.738.515-55\"\n}"
+							"raw": "{\n    \"name\": \"Edivaldo Mascarenhas\",\n    \"cpf\": \"02373851555\"\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/{{associates}}",
@@ -696,6 +709,19 @@
 				},
 				{
 					"name": "create Assembly",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let assemblyId = responseHeaders.Location.split('/').pop();",
+									"console.log(\"assemblyId: \", assemblyId);",
+									"postman.setEnvironmentVariable(\"assemblyId\", assemblyId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -755,6 +781,19 @@
 				},
 				{
 					"name": "create topicSession",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let topicSessionId = responseHeaders.Location.split('/').pop();",
+									"console.log(\"topicSessionId: \", topicSessionId);",
+									"postman.setEnvironmentVariable(\"topicSessionId\", topicSessionId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [

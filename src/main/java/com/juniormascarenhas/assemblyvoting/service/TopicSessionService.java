@@ -1,8 +1,13 @@
 package com.juniormascarenhas.assemblyvoting.service;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -18,6 +23,8 @@ import com.juniormascarenhas.assemblyvoting.entity.Associated;
 import com.juniormascarenhas.assemblyvoting.entity.TopicSession;
 import com.juniormascarenhas.assemblyvoting.entity.Vote;
 import com.juniormascarenhas.assemblyvoting.enumeration.SessionStatus;
+import com.juniormascarenhas.assemblyvoting.enumeration.TopicResult;
+import com.juniormascarenhas.assemblyvoting.enumeration.VoteValue;
 import com.juniormascarenhas.assemblyvoting.exception.EntityAlreadyExistsException;
 import com.juniormascarenhas.assemblyvoting.exception.ResourceNotFoundException;
 import com.juniormascarenhas.assemblyvoting.repository.AssociatedRepository;
@@ -84,16 +91,29 @@ public class TopicSessionService {
     }
   }
 
+  /**
+   * This method is responsible for open the session for voting First it verifies
+   * if the requested Topic Session exists Then perform the validator to verify:
+   * if the requested session status is 'OPENED' if the current status is neither
+   * 'OPENED' nor 'CLOSED' then updates the current status to 'OPENED' and call
+   * runAsyncSheduleToCloseSession to close the session based on TimeToBeOpen
+   * field.
+   *
+   * @param topicSessionId           the Topic Session identifier
+   * @param topicSessionPatchRequest the session status to be set
+   * @return the updated Topic session
+   */
   @Transactional
-  public TopicSession openSession(String id, TopicSessionPatchRequest topicSessionPatchRequest) {
-    Optional<TopicSession> topicSessionOpt = topicSessionRepository.findById(id);
+  public TopicSession openSession(String topicSessionId, TopicSessionPatchRequest topicSessionPatchRequest) {
+    Optional<TopicSession> topicSessionOpt = topicSessionRepository.findById(topicSessionId);
     if (topicSessionOpt.isPresent()) {
       TopicSession topicSession = topicSessionOpt.get();
       OpenSessionValidation.validate(topicSession.getStatus(), topicSessionPatchRequest.getStatus());
       topicSession.setDateTimeOpenned(LocalDateTime.now());
       topicSession.setStatus(SessionStatus.OPENED);
-      topicSessionRepository.save(topicSessionOpt.get());
-      return topicSessionOpt.get();
+      topicSessionRepository.save(topicSession);
+      runAsyncSheduleToCloseSession(topicSession);
+      return topicSession;
     } else {
       throw new ResourceNotFoundException();
     }
@@ -127,4 +147,43 @@ public class TopicSessionService {
     }
   }
 
+  /**
+   * This method is responsible for closing the session based on TimeToBeOpen
+   * field in the given topicSession It updates the status to CLOSED after the
+   * minutes set in TimeToBeOpen field call the method to update the result field
+   * in the given topic session
+   * 
+   * @param topicSession the Topic Session to be closed.
+   * @return void
+   */
+  private void runAsyncSheduleToCloseSession(TopicSession topicSession) {
+    ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+    scheduledExecutorService.schedule(() -> {
+      topicSession.setStatus(SessionStatus.CLOSED);
+      topicSessionRepository.save(topicSession);
+      System.out.println("topicSession with id: " + topicSession.getId() + "Closed.");
+      updateTopicSessionResult(topicSession);
+      return "Closed!";
+    }, topicSession.getTimeToBeOpen(), TimeUnit.MINUTES);
+    scheduledExecutorService.shutdown();
+  }
+
+  private void updateTopicSessionResult(TopicSession topicSession) {
+    Map<String, Long> votesMap = topicSession.getVotes().stream().map(Vote::getValue)
+        .collect(Collectors.groupingBy(VoteValue::toString, Collectors.counting()));
+
+    Long yesCount = (null == votesMap.get(VoteValue.YES.name())) ? 0L : votesMap.get(VoteValue.YES.name());
+    Long noCount = (null == votesMap.get(VoteValue.NO.name())) ? 0L : votesMap.get(VoteValue.NO.name());
+    if (yesCount > noCount) {
+      topicSession.setResult(TopicResult.APPROVED);
+      System.out.println("topicSession with id: " + topicSession.getId() + "APPROVED.");
+    } else if (yesCount < noCount) {
+      topicSession.setResult(TopicResult.REJECTED);
+      System.out.println("topicSession with id: " + topicSession.getId() + "REJECTED.");
+    } else {
+      topicSession.setResult(TopicResult.DRAW);
+      System.out.println("topicSession with id: " + topicSession.getId() + "DRAW.");
+    }
+    topicSessionRepository.save(topicSession);
+  }
 }

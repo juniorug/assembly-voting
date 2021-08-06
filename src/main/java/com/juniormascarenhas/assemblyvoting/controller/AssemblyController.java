@@ -65,7 +65,7 @@ public class AssemblyController {
   public ResponseEntity<TopicSession> createTopicSession(@PathVariable(value = "assemblyId") String assemblyId,
       @Valid @RequestBody TopicSessionRequest topicSession) {
     String topicSessionId = assemblyService.createTopicSession(assemblyId, topicSession);
-    return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{assemblyId}/topic-session/")
+    return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{topicSessionId}")
         .buildAndExpand(topicSessionId).toUri()).build();
   }
 

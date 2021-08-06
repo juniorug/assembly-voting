@@ -22,11 +22,16 @@ public class Messages {
   public static final String SIZE_137_INVALID_LENGTH_ERROR = "412.013";
   public static final String SIZE_11_INVALID_LENGTH_ERROR = "412.014";
   /* Open session related error codes */
-  public static final String STATUS_RESQUESTED_MUST_BE_OPENED = "412.013";
+  public static final String STATUS_RESQUESTED_MUST_BE_OPENED = "412.015";
+  /* Vote related error codes */
+  public static final String SESSION_NOT_OPENED = "412.016";
+  public static final String ASSOCIATED_UNABLE_TO_VOTE = "412.017";
+  public static final String ASSOCIATED_ALREADY_VOTED = "412.018";
 
   public static final String ENTITY_ALREADY_EXISTS = "422.001";
   public static final String ENTITY_DOES_NOT_EXISTS = "422.002";
   /* Open session related error codes */
   public static final String SESSION_ALREADY_OPENED = "422.003";
   public static final String SESSION_ALREADY_CLOSED = "422.004";
+
 }

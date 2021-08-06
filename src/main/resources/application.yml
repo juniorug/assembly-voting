@@ -9,8 +9,8 @@ spring:
     username: u765057031_root
     password: Support123
   jpa:
-    #hibernate.ddl-auto: update
-    hibernate.ddl-auto: create
+    #hibernate.ddl-auto: create/update
+    hibernate.ddl-auto: update
     generate-ddl: true
     show-sql: true
     

@@ -61,7 +61,7 @@ public class QueryParamFactory {
   public SortingFieldEnum createField(NativeWebRequest webRequest, List<MessageError> errors) {
     try {
       return Optional.ofNullable(webRequest.getParameter("field")).filter(StringUtils::isNotBlank).map(String::trim)
-          .map(String::toUpperCase).map(SortingFieldEnum::getPublisherSortingFieldByParam)
+          .map(String::toUpperCase).map(SortingFieldEnum::getSortingFieldByParam)
           .orElse(SortingFieldEnum.NAME);
     } catch (Exception e) {
       errors.add(new MessageError(Messages.INVALID_REQUEST_PARAM_FIELD, "field"));

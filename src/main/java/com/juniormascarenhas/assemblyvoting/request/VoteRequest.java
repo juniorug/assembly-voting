@@ -2,7 +2,7 @@ package com.juniormascarenhas.assemblyvoting.request;
 
 import java.time.LocalDateTime;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.juniormascarenhas.assemblyvoting.entity.Associated;
 import com.juniormascarenhas.assemblyvoting.entity.TopicSession;
@@ -25,7 +25,7 @@ public class VoteRequest {
 
   private TopicSession topicSession;
 
-  @NotBlank(message = Messages.FIELD_REQUIRED_ERROR)
+  @NotNull(message = Messages.FIELD_REQUIRED_ERROR)
   private VoteValue value;
 
   private LocalDateTime createdAt;
@@ -33,23 +33,13 @@ public class VoteRequest {
   private LocalDateTime updatedAt;
 
   public Vote toEntity(Associated associated, TopicSession topicSession) {
-    return Vote.builder()
-        .createdAt(LocalDateTime.now())
-        .associated(associated)
-        .topicSession(topicSession)
-        .value(value)
+    return Vote.builder().createdAt(LocalDateTime.now()).associated(associated).topicSession(topicSession).value(value)
         .build();
   }
 
   public Vote toEntity(Vote vote) {
-    return Vote.builder()
-        .id(vote.getId())
-        .createdAt(vote.getCreatedAt())
-        .updatedAt(LocalDateTime.now())
-        .associated(vote.getAssociated())
-        .topicSession(vote.getTopicSession())
-        .value(vote.getValue())
-        .build();
+    return Vote.builder().id(vote.getId()).createdAt(vote.getCreatedAt()).updatedAt(LocalDateTime.now())
+        .associated(vote.getAssociated()).topicSession(vote.getTopicSession()).value(vote.getValue()).build();
   }
 
 }

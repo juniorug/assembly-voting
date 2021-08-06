@@ -13,7 +13,7 @@ public enum SortingFieldEnum {
 
   public final String label;
 
-  public static SortingFieldEnum getPublisherSortingFieldByParam(String sortingField) {
+  public static SortingFieldEnum getSortingFieldByParam(String sortingField) {
     return Arrays.stream(SortingFieldEnum.values())
         .filter(sortingFieldEnum -> sortingFieldEnum.name().equals(sortingField)).findFirst()
         .orElseThrow(() -> new IllegalArgumentException(sortingField));

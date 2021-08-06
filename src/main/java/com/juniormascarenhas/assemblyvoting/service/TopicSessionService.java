@@ -25,7 +25,6 @@ import com.juniormascarenhas.assemblyvoting.entity.Vote;
 import com.juniormascarenhas.assemblyvoting.enumeration.SessionStatus;
 import com.juniormascarenhas.assemblyvoting.enumeration.TopicResult;
 import com.juniormascarenhas.assemblyvoting.enumeration.VoteValue;
-import com.juniormascarenhas.assemblyvoting.exception.EntityAlreadyExistsException;
 import com.juniormascarenhas.assemblyvoting.exception.ResourceNotFoundException;
 import com.juniormascarenhas.assemblyvoting.repository.AssociatedRepository;
 import com.juniormascarenhas.assemblyvoting.repository.TopicSessionRepository;
@@ -34,7 +33,7 @@ import com.juniormascarenhas.assemblyvoting.request.GetQueryParam;
 import com.juniormascarenhas.assemblyvoting.request.TopicSessionPatchRequest;
 import com.juniormascarenhas.assemblyvoting.request.VoteRequest;
 import com.juniormascarenhas.assemblyvoting.response.TopicSessionResponse;
-import com.juniormascarenhas.assemblyvoting.validator.OpenSessionValidation;
+import com.juniormascarenhas.assemblyvoting.validator.TopicSessionValidation;
 
 @Service
 public class TopicSessionService {
@@ -108,7 +107,7 @@ public class TopicSessionService {
     Optional<TopicSession> topicSessionOpt = topicSessionRepository.findById(topicSessionId);
     if (topicSessionOpt.isPresent()) {
       TopicSession topicSession = topicSessionOpt.get();
-      OpenSessionValidation.validate(topicSession.getStatus(), topicSessionPatchRequest.getStatus());
+      TopicSessionValidation.validateStatusChange(topicSession.getStatus(), topicSessionPatchRequest.getStatus());
       topicSession.setDateTimeOpenned(LocalDateTime.now());
       topicSession.setStatus(SessionStatus.OPENED);
       topicSessionRepository.save(topicSession);
@@ -132,15 +131,20 @@ public class TopicSessionService {
 
   @Transactional
   public String vote(String topicSessionId, String associatedId, VoteRequest voteRequest) {
-    Optional<TopicSession> topicSession = topicSessionRepository.findById(topicSessionId);
-    Optional<Associated> associated = associatedRepository.findById(associatedId);
-    if (topicSession.isPresent() && associated.isPresent()) {
+    Optional<TopicSession> topicSessionOpt = topicSessionRepository.findById(topicSessionId);
+    Optional<Associated> associatedOpt = associatedRepository.findById(associatedId);
+    if (topicSessionOpt.isPresent() && associatedOpt.isPresent()) {
+      TopicSession topicSession = topicSessionOpt.get();
+      Associated associated = associatedOpt.get();
+      Vote vote = voteRequest.toEntity(associated, topicSession);
+      TopicSessionValidation.validateVote(topicSession, vote);
+      /*
+       * voteRepository.findByTopicSessionAndAssociated(topicSession,
+       * associated).ifPresent(e -> { throw new
+       * EntityAlreadyExistsException(TOPIC_SESSION_AND_ASSOCIATED); });
+       */
 
-      voteRepository.findByTopicSessionAndAssociated(topicSession.get(), associated.get()).ifPresent(e -> {
-        throw new EntityAlreadyExistsException(TOPIC_SESSION_AND_ASSOCIATED);
-      });
-
-      Vote vote = voteRequest.toEntity(associated.get(), topicSession.get());
+      // Vote vote = voteRequest.toEntity(associated.get(), topicSession.get());
       return voteRepository.save(vote).getId();
     } else {
       throw new ResourceNotFoundException();

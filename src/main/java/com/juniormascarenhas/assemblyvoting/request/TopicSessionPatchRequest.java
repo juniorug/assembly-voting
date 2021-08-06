@@ -1,6 +1,6 @@
 package com.juniormascarenhas.assemblyvoting.request;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.juniormascarenhas.assemblyvoting.enumeration.SessionStatus;
 import com.juniormascarenhas.assemblyvoting.exception.Messages;
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TopicSessionPatchRequest {
 
-  @NotBlank(message = Messages.FIELD_REQUIRED_ERROR)
+  @NotNull(message = Messages.FIELD_REQUIRED_ERROR)
   private SessionStatus status;
 
 }

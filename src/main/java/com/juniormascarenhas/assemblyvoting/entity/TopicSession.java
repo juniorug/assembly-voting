@@ -56,7 +56,7 @@ public class TopicSession implements Serializable {
   @Column(name = "TIME_TO_BE_OPEN")
   private int timeToBeOpen;
 
-  @Column(name = "TIME_OPENNED")
+  @Column(name = "DATE_TIME_OPENNED")
   private LocalDateTime dateTimeOpenned;
 
   @Column(name = "STATUS")

@@ -54,7 +54,7 @@ public class TopicSessionController {
   }
 
   @PatchMapping(path = "/{topicSessionId}", headers = X_API_VERSION_1)
-  public ResponseEntity<TopicSession> openSession(@PathVariable("id") String topicSessionId,
+  public ResponseEntity<TopicSession> openSession(@PathVariable("topicSessionId") String topicSessionId,
       @Valid @RequestBody TopicSessionPatchRequest topicSessionPatchRequest) {
     TopicSession topicSession = topicSessionService.openSession(topicSessionId, topicSessionPatchRequest);
     return ResponseEntity.ok(topicSession);

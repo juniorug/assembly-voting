@@ -9,7 +9,7 @@ public enum SortOrder {
   ASC {
     @Override
     public Sort getSortBy() {
-      return Sort.by(Sort.Order.asc(REALIZATION_DATE));
+      return Sort.by(Sort.Order.asc(CREATED_AT));
     }
 
     @Override
@@ -20,7 +20,7 @@ public enum SortOrder {
   DESC {
     @Override
     public Sort getSortBy() {
-      return Sort.by(Sort.Order.desc(REALIZATION_DATE));
+      return Sort.by(Sort.Order.desc(CREATED_AT));
     }
 
     @Override
@@ -30,7 +30,7 @@ public enum SortOrder {
 
   };
 
-  private static final String REALIZATION_DATE = "realizationDate";
+  private static final String CREATED_AT = "createdAt";
 
   public abstract Sort getSortBy();
 

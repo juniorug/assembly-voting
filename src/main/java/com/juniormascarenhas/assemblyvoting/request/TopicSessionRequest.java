@@ -3,6 +3,7 @@ package com.juniormascarenhas.assemblyvoting.request;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.juniormascarenhas.assemblyvoting.entity.Assembly;
@@ -22,6 +23,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TopicSessionRequest {
 
+  @NotBlank(message = Messages.FIELD_REQUIRED_ERROR)
   @Size(max = 1024, message = Messages.SIZE_1024_INVALID_LENGTH_ERROR)
   private String name;
 
@@ -30,11 +32,12 @@ public class TopicSessionRequest {
 
   private String assemblyId;
 
-  private long timeToBeOpen;
+  private int timeToBeOpen;
 
   private List<Vote> votes;
 
   public TopicSession toEntity(Assembly assembly) {
+    timeToBeOpen = (timeToBeOpen == 0) ? timeToBeOpen : 1;
     return TopicSession.builder()
         .createdAt(LocalDateTime.now())
         .name(name)

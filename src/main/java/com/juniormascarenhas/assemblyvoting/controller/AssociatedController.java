@@ -23,6 +23,7 @@ import com.juniormascarenhas.assemblyvoting.request.AssociatedRequest;
 import com.juniormascarenhas.assemblyvoting.request.GetQueryParam;
 import com.juniormascarenhas.assemblyvoting.response.AssociatedResponse;
 import com.juniormascarenhas.assemblyvoting.service.AssociatedService;
+import com.juniormascarenhas.assemblyvoting.validator.CpfValidator;
 
 @RestController
 @RequestMapping(path = "/associates", produces = "application/json")
@@ -36,7 +37,8 @@ public class AssociatedController {
   private AssociatedService associatedService;
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, headers = X_API_VERSION_1)
-  public ResponseEntity<Void> save(@RequestBody @Valid AssociatedRequest associated) {
+  public ResponseEntity<Void> save(@Valid @RequestBody AssociatedRequest associated) {
+    CpfValidator.validateCPF(associated.getCpf());
     String associatedId = associatedService.createAssociated(associated);
     return ResponseEntity.created(
         ServletUriComponentsBuilder.fromCurrentRequest().path("/{associatedId}").buildAndExpand(associatedId).toUri())

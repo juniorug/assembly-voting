@@ -2,10 +2,13 @@ package com.juniormascarenhas.assemblyvoting.request;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotBlank;
+
 import com.juniormascarenhas.assemblyvoting.entity.Associated;
 import com.juniormascarenhas.assemblyvoting.entity.TopicSession;
 import com.juniormascarenhas.assemblyvoting.entity.Vote;
 import com.juniormascarenhas.assemblyvoting.enumeration.VoteValue;
+import com.juniormascarenhas.assemblyvoting.exception.Messages;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,12 +25,12 @@ public class VoteRequest {
 
   private TopicSession topicSession;
 
+  @NotBlank(message = Messages.FIELD_REQUIRED_ERROR)
   private VoteValue value;
 
   private LocalDateTime createdAt;
 
   private LocalDateTime updatedAt;
-  
 
   public Vote toEntity(Associated associated, TopicSession topicSession) {
     return Vote.builder()

@@ -54,7 +54,7 @@ public class TopicSession implements Serializable {
   private String description;
 
   @Column(name = "TIME_TO_BE_OPEN")
-  private long timeToBeOpen;
+  private int timeToBeOpen;
 
   @Column(name = "TIME_OPENNED")
   private LocalDateTime dateTimeOpenned;
@@ -82,18 +82,9 @@ public class TopicSession implements Serializable {
   private Assembly assembly;
 
   public TopicSessionResponse toResponse() {
-    return TopicSessionResponse.builder()
-        .id(id)
-        .description(description)
-        .timeToBeOpen(timeToBeOpen)
-        .dateTimeOpenned(dateTimeOpenned)
-        .status(status)
-        .createdAt(createdAt)
-        .updatedAt(updatedAt)
-        .assemblyId(assembly.getId())
-        .topicResult(result)
-        .votes(votes)
-        .build();
+    return TopicSessionResponse.builder().id(id).description(description).timeToBeOpen(timeToBeOpen)
+        .dateTimeOpenned(dateTimeOpenned).status(status).createdAt(createdAt).updatedAt(updatedAt)
+        .assemblyId(assembly.getId()).topicResult(result).votes(votes).build();
   }
 
 }

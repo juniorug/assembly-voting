@@ -1,5 +1,6 @@
 package com.juniormascarenhas.assemblyvoting.service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -23,8 +24,10 @@ import com.juniormascarenhas.assemblyvoting.repository.AssociatedRepository;
 import com.juniormascarenhas.assemblyvoting.repository.TopicSessionRepository;
 import com.juniormascarenhas.assemblyvoting.repository.VoteRepository;
 import com.juniormascarenhas.assemblyvoting.request.GetQueryParam;
+import com.juniormascarenhas.assemblyvoting.request.TopicSessionPatchRequest;
 import com.juniormascarenhas.assemblyvoting.request.VoteRequest;
 import com.juniormascarenhas.assemblyvoting.response.TopicSessionResponse;
+import com.juniormascarenhas.assemblyvoting.validator.OpenSessionValidation;
 
 @Service
 public class TopicSessionService {
@@ -82,12 +85,15 @@ public class TopicSessionService {
   }
 
   @Transactional
-  public TopicSession openSession(String id) {
-    Optional<TopicSession> topicSession = topicSessionRepository.findById(id);
-    if (topicSession.isPresent()) {
-      topicSession.get().setStatus(SessionStatus.OPENED);
-      topicSessionRepository.save(topicSession.get());
-      return topicSession.get();
+  public TopicSession openSession(String id, TopicSessionPatchRequest topicSessionPatchRequest) {
+    Optional<TopicSession> topicSessionOpt = topicSessionRepository.findById(id);
+    if (topicSessionOpt.isPresent()) {
+      TopicSession topicSession = topicSessionOpt.get();
+      OpenSessionValidation.validate(topicSession.getStatus(), topicSessionPatchRequest.getStatus());
+      topicSession.setDateTimeOpenned(LocalDateTime.now());
+      topicSession.setStatus(SessionStatus.OPENED);
+      topicSessionRepository.save(topicSessionOpt.get());
+      return topicSessionOpt.get();
     } else {
       throw new ResourceNotFoundException();
     }

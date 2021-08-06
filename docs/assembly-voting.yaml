@@ -652,7 +652,7 @@ definitions:
     type: string
     maxLength: 8
     enum:
-      - APPROVED
+      - CREATED
       - OPENED
       - CLOSED
       - DELETED

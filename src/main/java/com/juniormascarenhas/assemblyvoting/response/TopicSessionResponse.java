@@ -33,7 +33,7 @@ public class TopicSessionResponse {
 
   private TopicResult topicResult;
 
-  private long timeToBeOpen;
+  private int timeToBeOpen;
 
   private LocalDateTime dateTimeOpenned;
 

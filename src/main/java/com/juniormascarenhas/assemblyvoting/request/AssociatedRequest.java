@@ -2,6 +2,7 @@ package com.juniormascarenhas.assemblyvoting.request;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.juniormascarenhas.assemblyvoting.entity.Associated;
@@ -19,10 +20,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AssociatedRequest {
 
-  @Size(max = 1024, message = Messages.SIZE_137_INVALID_LENGTH_ERROR)
+  @NotBlank(message = Messages.FIELD_REQUIRED_ERROR)
+  @Size(max = 137, message = Messages.SIZE_137_INVALID_LENGTH_ERROR)
   private String name;
 
-  @Size(max = 1024, message = Messages.SIZE_11_INVALID_LENGTH_ERROR)
+  @NotBlank(message = Messages.FIELD_REQUIRED_ERROR)
+  @Size(max = 11, message = Messages.SIZE_11_INVALID_LENGTH_ERROR)
   private String cpf;
 
   public Associated toEntity() {
@@ -38,7 +41,6 @@ public class AssociatedRequest {
         .id(associated.getId())
         .cpf(associated.getCpf())
         .updatedAt(LocalDateTime.now())
-        .name(name)
-        .build();
+        .name(name).build();
   }
 }

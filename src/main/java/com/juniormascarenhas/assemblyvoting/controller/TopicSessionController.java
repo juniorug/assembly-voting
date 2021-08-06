@@ -22,6 +22,7 @@ import com.juniormascarenhas.assemblyvoting.config.ApplicationConfig;
 import com.juniormascarenhas.assemblyvoting.entity.TopicSession;
 import com.juniormascarenhas.assemblyvoting.entity.Vote;
 import com.juniormascarenhas.assemblyvoting.request.GetQueryParam;
+import com.juniormascarenhas.assemblyvoting.request.TopicSessionPatchRequest;
 import com.juniormascarenhas.assemblyvoting.request.VoteRequest;
 import com.juniormascarenhas.assemblyvoting.response.TopicSessionResponse;
 import com.juniormascarenhas.assemblyvoting.service.TopicSessionService;
@@ -52,9 +53,10 @@ public class TopicSessionController {
     return ResponseEntity.ok(topicSession);
   }
 
-  @PatchMapping(path = "/{id}", headers = X_API_VERSION_1)
-  public ResponseEntity<TopicSession> openSession(@PathVariable("id") String id) {
-    TopicSession topicSession = topicSessionService.openSession(id);
+  @PatchMapping(path = "/{topicSessionId}", headers = X_API_VERSION_1)
+  public ResponseEntity<TopicSession> openSession(@PathVariable("id") String topicSessionId,
+      @Valid @RequestBody TopicSessionPatchRequest topicSessionPatchRequest) {
+    TopicSession topicSession = topicSessionService.openSession(topicSessionId, topicSessionPatchRequest);
     return ResponseEntity.ok(topicSession);
   }
 

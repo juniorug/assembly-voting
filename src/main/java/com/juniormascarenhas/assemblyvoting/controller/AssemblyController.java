@@ -53,7 +53,7 @@ public class AssemblyController {
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, headers = X_API_VERSION_1)
-  public ResponseEntity<Void> save(@RequestBody @Valid AssemblyRequest assembly) {
+  public ResponseEntity<Void> save(@Valid @RequestBody AssemblyRequest assembly) {
     String assemblyId = assemblyService.createAssembly(assembly);
     return ResponseEntity
         .created(
@@ -63,7 +63,7 @@ public class AssemblyController {
 
   @PostMapping(path = "{assemblyId}/topic-sessions", consumes = MediaType.APPLICATION_JSON_VALUE, headers = X_API_VERSION_1)
   public ResponseEntity<TopicSession> createTopicSession(@PathVariable(value = "assemblyId") String assemblyId,
-      @RequestBody @Valid TopicSessionRequest topicSession) {
+      @Valid @RequestBody TopicSessionRequest topicSession) {
     String topicSessionId = assemblyService.createTopicSession(assemblyId, topicSession);
     return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{assemblyId}/topic-session/")
         .buildAndExpand(topicSessionId).toUri()).build();

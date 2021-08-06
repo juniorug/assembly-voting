@@ -2,6 +2,7 @@ package com.juniormascarenhas.assemblyvoting.request;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,6 +25,7 @@ public class AssemblyRequest {
   @Size(max = 1024, message = Messages.SIZE_1024_INVALID_LENGTH_ERROR)
   private String description;
 
+  @NotBlank(message = Messages.FIELD_REQUIRED_ERROR)
   @JsonProperty("realizationDate")
   @DateTimeFormat(pattern = "yyyy.MM.dd HH:mm:ss")
   private LocalDateTime realizationDate;
